@@ -1,0 +1,150 @@
+import React, { useState } from 'react';
+import { Sparkles, Terminal, Copy, Check, Layers, ExternalLink, Cloud, Laptop } from 'lucide-react';
+import { ServerItem } from '../types';
+
+interface ServerTableProps {
+  servers: ServerItem[];
+  stackIds: Set<string>;
+  onToggleStack: (server: ServerItem) => void;
+  onConfigure: (server: ServerItem) => void;
+}
+
+export const ServerTable: React.FC<ServerTableProps> = ({
+  servers,
+  stackIds,
+  onToggleStack,
+  onConfigure,
+}) => {
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleCopy = (id: string, text: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  return (
+    <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+      <table className="w-full text-left text-xs">
+        <thead className="bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-medium">
+          <tr>
+            <th className="py-3 px-4">Name / Server</th>
+            <th className="py-3 px-4">Category</th>
+            <th className="py-3 px-4">Language / Scope</th>
+            <th className="py-3 px-4">Install Command</th>
+            <th className="py-3 px-4 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 text-slate-700 dark:text-slate-300">
+          {servers.map((server) => {
+            const inStack = stackIds.has(server.id);
+            return (
+              <tr
+                key={server.id}
+                onClick={() => onConfigure(server)}
+                className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 cursor-pointer transition-colors"
+              >
+                {/* Name & Desc */}
+                <td className="py-3 px-4 max-w-xs">
+                  <div className="flex items-center gap-1.5 font-semibold text-slate-900 dark:text-slate-100">
+                    <span className="truncate">{server.name}</span>
+                    {server.off && (
+                      <span className="shrink-0 inline-flex items-center text-[10px] text-amber-500 font-bold">
+                        ★
+                      </span>
+                    )}
+                    {server.gh && (
+                      <a
+                        href={server.gh}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                  </div>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                    {server.desc}
+                  </p>
+                </td>
+
+                {/* Category */}
+                <td className="py-3 px-4 whitespace-nowrap">
+                  <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60 text-[10px]">
+                    {server.cat}
+                  </span>
+                </td>
+
+                {/* Language / Scope */}
+                <td className="py-3 px-4 whitespace-nowrap">
+                  <div className="flex items-center gap-1.5">
+                    <span className="capitalize font-mono text-[11px]">{server.lang}</span>
+                    {server.scope === 'cloud' && (
+                      <Cloud className="w-3.5 h-3.5 text-indigo-500" title="Remote Streamable HTTP / SSE" />
+                    )}
+                    {server.scope === 'local' && (
+                      <Laptop className="w-3.5 h-3.5 text-slate-400" title="Local stdio process" />
+                    )}
+                  </div>
+                </td>
+
+                {/* Command */}
+                <td className="py-3 px-4 font-mono text-[11px] max-w-sm truncate text-slate-600 dark:text-slate-400">
+                  {server.cmd ? (
+                    <div className="flex items-center justify-between gap-2 bg-slate-50 dark:bg-slate-950/60 px-2 py-1 rounded-lg border border-slate-200/60 dark:border-slate-800/60">
+                      <span className="truncate">{server.cmd}</span>
+                      <button
+                        onClick={(e) => handleCopy(server.id, server.cmd!, e)}
+                        className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 shrink-0"
+                      >
+                        {copiedId === server.id ? (
+                          <Check className="w-3.5 h-3.5 text-emerald-500" />
+                        ) : (
+                          <Copy className="w-3.5 h-3.5" />
+                        )}
+                      </button>
+                    </div>
+                  ) : (
+                    <span className="text-slate-400 italic">Remote / Manual</span>
+                  )}
+                </td>
+
+                {/* Actions */}
+                <td className="py-3 px-4 text-right whitespace-nowrap">
+                  <div className="inline-flex items-center gap-1.5">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onConfigure(server);
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900 border border-brand-200 dark:border-brand-800 font-medium"
+                    >
+                      Config
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleStack(server);
+                      }}
+                      className={`p-1 rounded-lg border transition-all ${
+                        inStack
+                          ? 'bg-emerald-500 text-white border-emerald-500'
+                          : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100'
+                      }`}
+                      title={inStack ? 'In Stack' : 'Add to Stack'}
+                    >
+                      <Layers className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
