@@ -4,6 +4,11 @@
 
 // Well-known popular MCP servers curated Korean descriptions
 export const KNOWN_DESCRIPTIONS_KO: Record<string, string> = {
+  // WaveSpeed & Multimedia
+  'wavespeedai/mcp-server': 'WaveSpeed 카탈로그의 이미지, 동영상, 음성 및 3D 모델을 실행하는 멀티미디어 모델 실행 서버입니다. 모델 검색, 스키마 검사, 로컬 파일 업로드 및 실행 전 예상 비용 견적 조회를 지원합니다.',
+  '@wavespeed/mcp': 'WaveSpeed 카탈로그의 이미지, 동영상, 음성 및 3D 모델을 실행하는 멀티미디어 모델 실행 서버입니다. 모델 검색, 스키마 검사, 로컬 파일 업로드 및 실행 전 예상 비용 견적 조회를 지원합니다.',
+  'wavespeed': 'WaveSpeed 카탈로그의 이미지, 동영상, 음성 및 3D 모델을 실행하는 멀티미디어 모델 실행 서버입니다. 모델 검색, 스키마 검사, 로컬 파일 업로드 및 실행 전 예상 비용 견적 조회를 지원합니다.',
+
   // Top DevTools & Official
   '@modelcontextprotocol/server-filesystem': '로컬 파일 시스템에 안전하게 접근하여 파일을 읽고, 쓰고, 디렉토리를 탐색하는 공식 MCP 서버입니다.',
   '@modelcontextprotocol/server-github': 'GitHub 리포지토리 탐색, 커밋 조회, 이슈/PR 생성 및 코드 검색을 제공하는 공식 GitHub MCP 서버입니다.',
@@ -36,77 +41,171 @@ export const KNOWN_DESCRIPTIONS_KO: Record<string, string> = {
   'sentry-mcp': 'Sentry 에러 트래킹 시스템에서 발생한 실시간 예외 및 스택 트레이스를 분석하는 모니터링 MCP 서버입니다.',
 };
 
-// Common prefixes & sentence patterns to translate automatically
-const PATTERN_RULES: Array<{ pattern: RegExp; replace: (match: RegExpMatchArray) => string }> = [
-  {
-    pattern: /^an? (?:official )?(?:model context protocol|mcp) server (?:for|that|to) (.+)$/i,
-    replace: (m) => `${translateFragment(m[1])}을(를) 위한 MCP 서버입니다.`,
-  },
-  {
-    pattern: /^(?:model context protocol|mcp) server (?:for|that|to) (.+)$/i,
-    replace: (m) => `${translateFragment(m[1])}을(를) 위한 MCP 서버입니다.`,
-  },
-  {
-    pattern: /^connects? (?:ai assistants?|claude|llms?) to (.+)$/i,
-    replace: (m) => `AI를 ${translateFragment(m[1])}에 연결하여 연동 작업을 수행합니다.`,
-  },
-  {
-    pattern: /^integrates? (.+) with (?:mcp|claude|ai)$/i,
-    replace: (m) => `${translateFragment(m[1])}을(를) MCP와 연동하여 AI가 직접 활용할 수 있도록 지원합니다.`,
-  },
-  {
-    pattern: /^tools? (?:for|to) (.+)$/i,
-    replace: (m) => `${translateFragment(m[1])}을(를) 위한 도구 모음입니다.`,
-  },
-  {
-    pattern: /^enables? (?:ai|claude|llms?) to (.+)$/i,
-    replace: (m) => `AI가 ${translateFragment(m[1])}할 수 있도록 기능을 제공합니다.`,
-  },
-  {
-    pattern: /^provides? (?:access to|tools for) (.+)$/i,
-    replace: (m) => `${translateFragment(m[1])}에 접근하여 다양한 작업을 수행할 수 있는 기능을 제공합니다.`,
-  },
-  {
-    pattern: /^query and (?:manage|mutate|update) (.+)$/i,
-    replace: (m) => `${translateFragment(m[1])}을(를) 조회하고 편리하게 관리합니다.`,
-  },
-  {
-    pattern: /^search (?:across|and extract|for) (.+)$/i,
-    replace: (m) => `${translateFragment(m[1])}을(를) 검색하고 필요한 데이터를 추출합니다.`,
-  },
-  {
-    pattern: /^execute (.+) queries(?: and (.+))?$/i,
-    replace: (m) => `${translateFragment(m[1])} 쿼리를 실행${m[2] ? `하고 ${translateFragment(m[2])}` : ''}합니다.`,
-  },
-];
-
-// Term dictionary for common technical terms
-const TERM_DICT: Record<string, string> = {
-  'database': '데이터베이스',
-  'databases': '데이터베이스',
-  'filesystem': '파일 시스템',
-  'file system': '파일 시스템',
+// Known technical compound phrases
+const COMPOUND_PHRASES: Record<string, string> = {
+  'image, video, audio and 3d models': '이미지, 비디오, 오디오 및 3D 모델',
+  'image, video, audio and 3D models': '이미지, 비디오, 오디오 및 3D 모델',
+  'model search': '모델 검색',
+  'schema introspection': '스키마 구조 분석',
+  'local file upload': '로컬 파일 업로드',
+  'price quotes before running': '실행 전 예상 비용 견적 조회',
+  'breakpoints, stepping, locals, expression evaluation': '중단점 디버깅, 단계별 코드 실행, 로컬 변수 확인 및 표현식 평가',
+  'projects, packages, building, testing, and development tools': '프로젝트, 패키지, 빌드, 테스트 및 개발 도구',
+  'task management': '태스크 및 할 일 관리',
+  'project management': '프로젝트 관리',
   'browser automation': '브라우저 자동화',
   'web scraping': '웹 스크래핑',
   'web search': '웹 검색',
-  'search': '검색',
-  'memory': '메모리 및 기억',
   'knowledge graph': '지식 그래프',
-  'code analysis': '코드 분석',
-  'developer tools': '개발자 도구',
+  'knowledge base': '지식 베이스',
+  'cost observability': '비용 모니터링 및 분석',
+  'code analysis': '코드 정적 분석',
   'security audit': '보안 감사',
-  'monitoring': '모니터링',
-  'finance': '금융',
-  'cryptocurrency': '가상자산/크립토',
-  'trading': '트레이딩',
-  'weather': '날씨 및 기상',
-  'management': '관리',
-  'automation': '자동화',
+  'file system': '파일 시스템',
+  'filesystem': '파일 시스템',
+  'decompiled source': '디컴파일 소스 코드',
+  'vector database': '벡터 데이터베이스',
 };
+
+// Common prefixes & sentence patterns to translate automatically
+const PATTERN_RULES: Array<{ pattern: RegExp; replace: (match: RegExpMatchArray) => string }> = [
+  // Run models / catalogs
+  {
+    pattern: /^Run (.+?) from (.+?)(?::\s*(.+))?$/i,
+    replace: (m) => {
+      const models = translateFragment(m[1]);
+      const source = translateCatalogName(m[2]);
+      const details = m[3] ? ` (주요 기능: ${translateDetails(m[3])})` : '';
+      return `${source}에서 ${models}을(를) 실행합니다${details}.`;
+    },
+  },
+  // Give an AI agent
+  {
+    pattern: /^Give an? AI agent (.+?)(?::\s*(.+))?$/i,
+    replace: (m) => {
+      const cap = translateFragment(m[1]);
+      const details = m[2] ? ` (${translateDetails(m[2])})` : '';
+      return `AI 에이전트에게 ${cap} 기능을 제공합니다${details}.`;
+    },
+  },
+  // AI assistant access to
+  {
+    pattern: /^AI assistant access to (.+?) for (.+)$/i,
+    replace: (m) => {
+      const target = translateFragment(m[1]);
+      const purpose = translateFragment(m[2]);
+      return `AI 어시스턴트가 ${purpose} 목적으로 ${target}에 접근할 수 있도록 연동합니다.`;
+    },
+  },
+  // MCP server for X — Y
+  {
+    pattern: /^(?:An? )?(?:official )?(?:Model Context Protocol|MCP) server for (.+?)(?: — |: | - )(.*)$/i,
+    replace: (m) => {
+      const service = m[1].trim();
+      const desc = m[2] ? ` - ${translateDetails(m[2])}` : '';
+      return `${service}을(를) 위한 MCP 서버입니다${desc}`;
+    },
+  },
+  // Standard MCP server for / to
+  {
+    pattern: /^(?:An? )?(?:official )?(?:Model Context Protocol|MCP) server (?:for|that|to) (.+)$/i,
+    replace: (m) => `${translateFragment(m[1])}을(를) 위한 MCP 서버입니다.`,
+  },
+  // MCP server enabling X to Y
+  {
+    pattern: /^(?:An? )?MCP server enabling (.+?) to (.+)$/i,
+    replace: (m) => `${translateFragment(m[1])}이(가) ${translateFragment(m[2])}할 수 있도록 지원하는 MCP 서버입니다.`,
+  },
+  // MCP server providing / that provides
+  {
+    pattern: /^(?:An? )?MCP server (?:providing|that provides) (.+)$/i,
+    replace: (m) => `${translateFragment(m[1])} 기능을 제공하는 MCP 서버입니다.`,
+  },
+  // Connects X to Y
+  {
+    pattern: /^Connects? (.+) (?:to|with) (?:MCP|Claude|AI|LLMs?)(?: — |: | - )?(.*)$/i,
+    replace: (m) => {
+      const target = translateFragment(m[1]);
+      const extra = m[2] ? ` (${translateDetails(m[2])})` : '';
+      return `${target}을(를) AI 및 MCP 환경에 연동합니다${extra}.`;
+    },
+  },
+  // Integrates X with Y
+  {
+    pattern: /^Integrates? (.+) with (?:MCP|Claude|AI)$/i,
+    replace: (m) => `${translateFragment(m[1])}을(를) MCP와 연동하여 AI가 직접 활용할 수 있도록 지원합니다.`,
+  },
+  // Local MCP server for
+  {
+    pattern: /^Local(?:-first)? MCP server for (.+?)(?: — |: | - )?(.*)$/i,
+    replace: (m) => {
+      const target = translateFragment(m[1]);
+      const extra = m[2] ? ` (${translateDetails(m[2])})` : '';
+      return `${target}을(를) 위한 로컬 전용 MCP 서버입니다${extra}.`;
+    },
+  },
+  // Tools for X
+  {
+    pattern: /^Tools? (?:for|to) (.+)$/i,
+    replace: (m) => `${translateFragment(m[1])}을(를) 위한 도구 모음입니다.`,
+  },
+  // Enables AI to
+  {
+    pattern: /^Enables? (?:AI|Claude|LLMs?) to (.+)$/i,
+    replace: (m) => `AI가 ${translateFragment(m[1])}할 수 있도록 기능을 제공합니다.`,
+  },
+  // Provides access to / tools for
+  {
+    pattern: /^Provides? (?:access to|tools for) (.+)$/i,
+    replace: (m) => `${translateFragment(m[1])}에 접근하여 다양한 작업을 수행할 수 있는 기능을 제공합니다.`,
+  },
+  // Query and manage
+  {
+    pattern: /^Query and (?:manage|mutate|update) (.+)$/i,
+    replace: (m) => `${translateFragment(m[1])}을(를) 조회하고 편리하게 관리합니다.`,
+  },
+  // Search across
+  {
+    pattern: /^Search (?:across|and extract|for) (.+)$/i,
+    replace: (m) => `${translateFragment(m[1])}을(를) 검색하고 필요한 데이터를 추출합니다.`,
+  },
+  // Execute queries
+  {
+    pattern: /^Execute (.+) queries(?: and (.+))?$/i,
+    replace: (m) => `${translateFragment(m[1])} 쿼리를 실행${m[2] ? `하고 ${translateFragment(m[2])}` : ''}합니다.`,
+  },
+  // Smart MCP tool to
+  {
+    pattern: /^Smart MCP tool to (.+)$/i,
+    replace: (m) => `${translateFragment(m[1])} 작업을 수행하는 스마트 MCP 도구입니다.`,
+  },
+  // TypeScript MCP server boilerplate with
+  {
+    pattern: /^TypeScript MCP server boilerplate with (.+)$/i,
+    replace: (m) => `${translateDetails(m[1])}을(를) 갖춘 TypeScript 기반 MCP 서버 보일러플레이트입니다.`,
+  },
+];
+
+function translateCatalogName(cat: string): string {
+  let cleaned = cat.trim().replace(/^the\s+/i, '');
+  if (/catalog$/i.test(cleaned)) {
+    cleaned = cleaned.replace(/catalog$/i, '카탈로그');
+  }
+  return cleaned;
+}
+
+function translateDetails(details: string): string {
+  let result = details.trim();
+  for (const [en, ko] of Object.entries(COMPOUND_PHRASES)) {
+    const re = new RegExp(en, 'gi');
+    result = result.replace(re, ko);
+  }
+  return result;
+}
 
 function translateFragment(frag: string): string {
   let cleaned = frag.trim().replace(/\.$/, '');
-  for (const [en, ko] of Object.entries(TERM_DICT)) {
+  for (const [en, ko] of Object.entries(COMPOUND_PHRASES)) {
     const re = new RegExp(`\\b${en}\\b`, 'gi');
     cleaned = cleaned.replace(re, ko);
   }
@@ -121,7 +220,7 @@ export function getLocalizedDescription(name: string, description: string, local
     return description;
   }
 
-  // 1. Direct match by package/repo name
+  // 1. Direct match by package/repo name or known servers
   const cleanKey = name.toLowerCase().trim();
   if (KNOWN_DESCRIPTIONS_KO[cleanKey]) {
     return KNOWN_DESCRIPTIONS_KO[cleanKey];
@@ -132,7 +231,7 @@ export function getLocalizedDescription(name: string, description: string, local
     }
   }
 
-  // 2. Pattern matching
+  // 2. Pattern matching against full description
   const trimmed = description.trim();
   for (const rule of PATTERN_RULES) {
     const match = trimmed.match(rule.pattern);
@@ -141,16 +240,21 @@ export function getLocalizedDescription(name: string, description: string, local
     }
   }
 
-  // 3. Fallback: Term replacement if English sentence is recognized
-  let translated = trimmed;
-  let hasReplacement = false;
-  for (const [en, ko] of Object.entries(TERM_DICT)) {
-    const re = new RegExp(`\\b${en}\\b`, 'gi');
-    if (re.test(translated)) {
-      hasReplacement = true;
-      translated = translated.replace(re, ko);
+  // 3. Detail phrase enhancement if known phrases exist
+  let enhanced = trimmed;
+  let matchedPhrase = false;
+  for (const [en, ko] of Object.entries(COMPOUND_PHRASES)) {
+    const re = new RegExp(en, 'gi');
+    if (re.test(enhanced)) {
+      matchedPhrase = true;
+      enhanced = enhanced.replace(re, ko);
     }
   }
 
-  return hasReplacement ? translated : description;
+  // If phrases matched and text looks like a list or compound sentence, return the enhanced version
+  if (matchedPhrase) {
+    return enhanced;
+  }
+
+  return description;
 }

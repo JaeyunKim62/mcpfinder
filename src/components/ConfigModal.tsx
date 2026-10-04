@@ -69,7 +69,7 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose, local
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-1 max-w-xl">
                 {koreanDesc || server.desc}
               </p>
             </div>

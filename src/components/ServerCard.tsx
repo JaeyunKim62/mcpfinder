@@ -17,6 +17,7 @@ export const ServerCard: React.FC<ServerCardProps> = ({
 }) => {
   const [copied, setCopied] = useState(false);
   const [showOriginal, setShowOriginal] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const t = translations[locale];
 
   const handleCopyCmd = (e: React.MouseEvent) => {
@@ -109,23 +110,45 @@ export const ServerCard: React.FC<ServerCardProps> = ({
         </div>
 
         {/* Korean / Localized Description */}
-        <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3 line-clamp-3">
-          {displayDesc}
-        </p>
-
-        {/* Language toggle for description if Korean mode */}
-        {hasTranslationDiff && (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowOriginal((prev) => !prev);
-            }}
-            className="inline-flex items-center gap-1 text-[10px] text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 mb-2 transition-colors"
+        <div className="mb-3">
+          <p
+            className={`text-xs text-slate-600 dark:text-slate-300 leading-relaxed transition-all ${
+              isExpanded ? '' : 'line-clamp-3'
+            }`}
           >
-            <Globe2 className="w-2.5 h-2.5" />
-            <span>{showOriginal ? '한글 설명 보기' : '영문 원문 보기'}</span>
-          </button>
-        )}
+            {displayDesc}
+          </p>
+
+          <div className="flex items-center gap-3 mt-1.5 flex-wrap">
+            {displayDesc.length > 90 && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsExpanded(!isExpanded);
+                }}
+                className="inline-flex items-center text-[10px] font-medium text-brand-600 dark:text-brand-400 hover:underline"
+              >
+                {isExpanded ? (locale === 'ko' ? '간략히 접기 ↑' : 'Show less ↑') : (locale === 'ko' ? '전체 설명 더보기 ↓' : 'Read more ↓')}
+              </button>
+            )}
+
+            {/* Language toggle for description if Korean mode */}
+            {hasTranslationDiff && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowOriginal((prev) => !prev);
+                }}
+                className="inline-flex items-center gap-1 text-[10px] text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+              >
+                <Globe2 className="w-2.5 h-2.5" />
+                <span>{showOriginal ? '한글 번역 보기' : '영문 원문 보기'}</span>
+              </button>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* Footer & Actions */}
