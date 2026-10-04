@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Layers, Moon, Sun, Terminal, Database, Languages } from 'lucide-react';
+import { Search, Moon, Sun, Database } from 'lucide-react';
 import { CatalogStats } from '../types';
 import { Locale, translations } from '../i18n';
 
@@ -7,8 +7,6 @@ interface HeaderProps {
   stats: CatalogStats | null;
   searchQuery: string;
   onSearchChange: (q: string) => void;
-  stackCount: number;
-  onOpenStack: () => void;
   isDark: boolean;
   onToggleDark: () => void;
   locale: Locale;
@@ -19,8 +17,6 @@ export const Header: React.FC<HeaderProps> = ({
   stats,
   searchQuery,
   onSearchChange,
-  stackCount,
-  onOpenStack,
   isDark,
   onToggleDark,
   locale,
@@ -29,7 +25,7 @@ export const Header: React.FC<HeaderProps> = ({
   const t = translations[locale];
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md transition-colors">
+    <header className="sticky top-0 z-30 border-b border-slate-200/80 dark:border-slate-800/80 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           {/* Logo & Brand */}
@@ -69,47 +65,33 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
 
-          {/* Actions & Utilities */}
+          {/* Utilities */}
           <div className="flex items-center gap-2">
             {/* Language Selector */}
             <div className="flex items-center p-0.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-950/60 text-xs font-semibold">
               <button
                 onClick={() => onLocaleChange('ko')}
-                className={`px-2 py-1 rounded-lg transition-all ${
+                className={`px-2.5 py-1 rounded-lg transition-all ${
                   locale === 'ko'
                     ? 'bg-white dark:bg-slate-800 text-brand-600 dark:text-brand-400 shadow-sm'
                     : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
-                title="한국어로 전환"
+                title="한국어"
               >
                 KO
               </button>
               <button
                 onClick={() => onLocaleChange('en')}
-                className={`px-2 py-1 rounded-lg transition-all ${
+                className={`px-2.5 py-1 rounded-lg transition-all ${
                   locale === 'en'
                     ? 'bg-white dark:bg-slate-800 text-brand-600 dark:text-brand-400 shadow-sm'
                     : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
-                title="Switch to English"
+                title="English"
               >
                 EN
               </button>
             </div>
-
-            {/* Stack Builder Button */}
-            <button
-              onClick={onOpenStack}
-              className="relative inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-xl border border-slate-200 dark:border-slate-800 hover:border-brand-300 dark:hover:border-brand-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 shadow-sm transition-all"
-            >
-              <Layers className="w-4 h-4 text-brand-500" />
-              <span className="hidden sm:inline">{t.stackBuilder}</span>
-              {stackCount > 0 && (
-                <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold text-white bg-brand-600 rounded-full animate-pulse">
-                  {stackCount}
-                </span>
-              )}
-            </button>
 
             {/* Dark Mode Toggle */}
             <button
@@ -153,8 +135,8 @@ export const Header: React.FC<HeaderProps> = ({
               </span>
             </div>
             <div className="hidden lg:flex items-center gap-2">
-              <span className="inline-flex items-center gap-1 text-slate-400">
-                <Terminal className="w-3 h-3" /> {t.compatibleWith}
+              <span className="text-slate-400">
+                {t.compatibleWith}
               </span>
             </div>
           </div>

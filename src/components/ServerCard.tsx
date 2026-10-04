@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
-import { Sparkles, Terminal, Copy, Check, Layers, ExternalLink, Cloud, Laptop } from 'lucide-react';
+import { Sparkles, Terminal, Copy, Check, ExternalLink, Cloud, Laptop, Globe2 } from 'lucide-react';
 import { ServerItem } from '../types';
 import { Locale, translations, getCategoryLabel } from '../i18n';
+import { getLocalizedDescription } from '../i18n/translator';
 
 interface ServerCardProps {
   server: ServerItem;
-  isInStack: boolean;
-  onToggleStack: (server: ServerItem) => void;
   onConfigure: (server: ServerItem) => void;
   locale: Locale;
 }
 
 export const ServerCard: React.FC<ServerCardProps> = ({
   server,
-  isInStack,
-  onToggleStack,
   onConfigure,
   locale,
 }) => {
   const [copied, setCopied] = useState(false);
+  const [showOriginal, setShowOriginal] = useState(false);
   const t = translations[locale];
 
   const handleCopyCmd = (e: React.MouseEvent) => {
@@ -46,6 +44,9 @@ export const ServerCard: React.FC<ServerCardProps> = ({
   };
 
   const categoryLabel = getCategoryLabel(server.cat, locale);
+  const koreanDesc = getLocalizedDescription(server.name, server.desc, 'ko');
+  const displayDesc = locale === 'ko' && !showOriginal ? koreanDesc : (server.desc || t.noDesc);
+  const hasTranslationDiff = locale === 'ko' && server.desc && koreanDesc !== server.desc;
 
   return (
     <div
@@ -80,8 +81,8 @@ export const ServerCard: React.FC<ServerCardProps> = ({
         </div>
 
         {/* Server Name & GitHub link */}
-        <div className="flex items-start justify-between gap-2 mb-1.5">
-          <h3 className="font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors line-clamp-1">
+        <div className="flex items-start justify-between gap-2 mb-2">
+          <h3 className="font-bold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors line-clamp-1">
             {server.name}
           </h3>
           {server.gh && (
@@ -90,28 +91,42 @@ export const ServerCard: React.FC<ServerCardProps> = ({
               target="_blank"
               rel="noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 shrink-0 p-0.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-              title="Open GitHub Repository"
+              className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 shrink-0 p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              title="GitHub"
             >
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
           )}
         </div>
 
-        {/* Description */}
-        <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed mb-4">
-          {server.desc || t.noDesc}
+        {/* Korean / Localized Description */}
+        <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3 line-clamp-3">
+          {displayDesc}
         </p>
+
+        {/* Language toggle for description if Korean mode */}
+        {hasTranslationDiff && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowOriginal((prev) => !prev);
+            }}
+            className="inline-flex items-center gap-1 text-[10px] text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 mb-2 transition-colors"
+          >
+            <Globe2 className="w-2.5 h-2.5" />
+            <span>{showOriginal ? '한글 설명 보기' : '영문 원문 보기'}</span>
+          </button>
+        )}
       </div>
 
       {/* Footer & Actions */}
       <div className="space-y-3 pt-3 border-t border-slate-100 dark:border-slate-800/60">
-        {/* Install Command Snippet (if available) */}
+        {/* Quick Install Command */}
         {server.cmd ? (
           <div
             onClick={handleCopyCmd}
             className="flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800/80 text-[11px] font-mono text-slate-700 dark:text-slate-300 hover:border-brand-400 dark:hover:border-brand-600 transition-colors group/cmd"
-            title="Click to copy install command"
+            title="클릭하여 설치 명령 복사"
           >
             <span className="truncate pr-2 select-all">{server.cmd}</span>
             <button className="shrink-0 text-slate-400 group-hover/cmd:text-brand-600 dark:group-hover/cmd:text-brand-400">
@@ -124,35 +139,17 @@ export const ServerCard: React.FC<ServerCardProps> = ({
           </div>
         )}
 
-        {/* Buttons: Configure & Add to Stack */}
-        <div className="flex items-center justify-between gap-2">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onConfigure(server);
-            }}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl bg-brand-50 dark:bg-brand-950/50 hover:bg-brand-100 dark:hover:bg-brand-900/60 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800 transition-all"
-          >
-            <Terminal className="w-3.5 h-3.5" />
-            {t.configure}
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onToggleStack(server);
-            }}
-            className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl border transition-all ${
-              isInStack
-                ? 'bg-emerald-500 border-emerald-500 text-white shadow-sm shadow-emerald-500/20'
-                : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60'
-            }`}
-            title={isInStack ? 'Remove from Stack' : 'Add to Stack'}
-          >
-            <Layers className="w-3.5 h-3.5" />
-            <span>{isInStack ? t.inStack : t.addStack}</span>
-          </button>
-        </div>
+        {/* Action Button: Simple Configure / JSON */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onConfigure(server);
+          }}
+          className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-brand-50 dark:bg-brand-950/50 hover:bg-brand-100 dark:hover:bg-brand-900/60 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800 transition-all"
+        >
+          <Terminal className="w-3.5 h-3.5" />
+          {locale === 'ko' ? '설정 코드 (mcp.json) 보기' : 'View Config (mcp.json)'}
+        </button>
       </div>
     </div>
   );

@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
-import { Sparkles, Terminal, Copy, Check, Layers, ExternalLink, Cloud, Laptop } from 'lucide-react';
+import { Sparkles, Terminal, Copy, Check, ExternalLink, Cloud, Laptop } from 'lucide-react';
 import { ServerItem } from '../types';
 import { Locale, translations, getCategoryLabel } from '../i18n';
+import { getLocalizedDescription } from '../i18n/translator';
 
 interface ServerTableProps {
   servers: ServerItem[];
-  stackIds: Set<string>;
-  onToggleStack: (server: ServerItem) => void;
   onConfigure: (server: ServerItem) => void;
   locale: Locale;
 }
 
 export const ServerTable: React.FC<ServerTableProps> = ({
   servers,
-  stackIds,
-  onToggleStack,
   onConfigure,
   locale,
 }) => {
@@ -42,8 +39,8 @@ export const ServerTable: React.FC<ServerTableProps> = ({
         </thead>
         <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 text-slate-700 dark:text-slate-300">
           {servers.map((server) => {
-            const inStack = stackIds.has(server.id);
             const categoryLabel = getCategoryLabel(server.cat, locale);
+            const displayDesc = getLocalizedDescription(server.name, server.desc, locale);
 
             return (
               <tr
@@ -52,7 +49,7 @@ export const ServerTable: React.FC<ServerTableProps> = ({
                 className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 cursor-pointer transition-colors"
               >
                 {/* Name & Desc */}
-                <td className="py-3 px-4 max-w-xs">
+                <td className="py-3 px-4 max-w-sm">
                   <div className="flex items-center gap-1.5 font-semibold text-slate-900 dark:text-slate-100">
                     <span className="truncate">{server.name}</span>
                     {server.off && (
@@ -74,7 +71,7 @@ export const ServerTable: React.FC<ServerTableProps> = ({
                     )}
                   </div>
                   <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
-                    {server.desc}
+                    {displayDesc || t.noDesc}
                   </p>
                 </td>
 
@@ -122,31 +119,15 @@ export const ServerTable: React.FC<ServerTableProps> = ({
 
                 {/* Actions */}
                 <td className="py-3 px-4 text-right whitespace-nowrap">
-                  <div className="inline-flex items-center gap-1.5">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onConfigure(server);
-                      }}
-                      className="px-2.5 py-1 rounded-lg bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900 border border-brand-200 dark:border-brand-800 font-medium"
-                    >
-                      {t.configure}
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onToggleStack(server);
-                      }}
-                      className={`p-1 rounded-lg border transition-all ${
-                        inStack
-                          ? 'bg-emerald-500 text-white border-emerald-500'
-                          : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100'
-                      }`}
-                      title={inStack ? t.inStack : t.addStack}
-                    >
-                      <Layers className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onConfigure(server);
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900 border border-brand-200 dark:border-brand-800 font-medium"
+                  >
+                    {locale === 'ko' ? '설정 코드' : 'Config'}
+                  </button>
                 </td>
               </tr>
             );
