@@ -93,6 +93,11 @@ export const ServerTable: React.FC<ServerTableProps> = ({
                       <Laptop className="w-3.5 h-3.5 text-slate-400" title={t.scopeLocal} />
                     )}
                   </div>
+                  {server.updatedAt && (
+                    <span className="text-[10px] text-slate-400 font-mono block mt-0.5" title={t.updatedAt}>
+                      📅 {server.updatedAt}
+                    </span>
+                  )}
                 </td>
 
                 {/* Command */}

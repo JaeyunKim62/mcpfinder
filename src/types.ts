@@ -18,6 +18,7 @@ export interface ServerItem {
   dl: number | null;
   lic: string | null;
   srcs: string[];
+  updatedAt: string | null;
 }
 
 export interface CatalogStats {
@@ -40,5 +41,6 @@ export interface FilterState {
   scope: string;
   officialOnly: boolean;
   installOnly: boolean;
+  recentOnly: boolean;
   sortBy: 'popularity' | 'downloads' | 'name' | 'newest';
 }

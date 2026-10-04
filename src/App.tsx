@@ -61,6 +61,7 @@ export const App: React.FC = () => {
     scope: '',
     officialOnly: false,
     installOnly: false,
+    recentOnly: false,
     sortBy: 'popularity',
   });
 
@@ -184,6 +185,11 @@ export const App: React.FC = () => {
         return false;
       }
 
+      // Recent only (updated within 2026)
+      if (filters.recentOnly && (!server.updatedAt || server.updatedAt < '2026-01-01')) {
+        return false;
+      }
+
       return true;
     });
   }, [servers, filters, locale, aiRecommendation]);
@@ -208,6 +214,8 @@ export const App: React.FC = () => {
     }
 
     switch (filters.sortBy) {
+      case 'newest':
+        return list.sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
       case 'downloads':
         return list.sort((a, b) => (b.dl || 0) - (a.dl || 0));
       case 'name':

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Terminal, Copy, Check, ExternalLink, Cloud, Laptop, Globe2 } from 'lucide-react';
+import { Sparkles, Terminal, Copy, Check, ExternalLink, Cloud, Laptop, Globe2, Calendar } from 'lucide-react';
 import { ServerItem } from '../types';
 import { Locale, translations, getCategoryLabel } from '../i18n';
 import { getLocalizedDescription } from '../i18n/translator';
@@ -69,6 +69,15 @@ export const ServerCard: React.FC<ServerCardProps> = ({
             {server.scope === 'local' && (
               <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
                 <Laptop className="w-2.5 h-2.5" /> {t.local}
+              </span>
+            )}
+            {server.updatedAt && (
+              <span
+                className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
+                title={`${t.updatedAt}: ${server.updatedAt}`}
+              >
+                <Calendar className="w-2.5 h-2.5 text-slate-400" />
+                {server.updatedAt}
               </span>
             )}
           </div>

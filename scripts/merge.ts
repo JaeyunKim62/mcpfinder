@@ -214,6 +214,7 @@ export async function mergeAllSources(): Promise<MCPServer[]> {
           transport !== "unknown" ? transport : existing.transport;
         existing.registryVersion = entry.version;
         existing.websiteUrl = entry.websiteUrl ?? existing.websiteUrl;
+        existing.metrics.lastCommitAt = entry.updatedAt || entry.publishedAt || existing.metrics.lastCommitAt;
         if (!existing.sources.includes("registry")) {
           existing.sources.push("registry");
         }
@@ -242,7 +243,10 @@ export async function mergeAllSources(): Promise<MCPServer[]> {
           transport,
           install,
           envVars,
-          metrics: emptyMetrics(),
+          metrics: {
+            ...emptyMetrics(),
+            lastCommitAt: entry.updatedAt || entry.publishedAt || null,
+          },
           license: null,
           sources: ["registry"],
           registryVersion: entry.version,
@@ -280,6 +284,7 @@ export async function mergeAllSources(): Promise<MCPServer[]> {
         // Merge: add download metrics
         const existing = serverMap.get(key)!;
         existing.metrics.npmWeeklyDownloads = entry.weeklyDownloads;
+        existing.metrics.lastCommitAt = entry.lastUpdated || existing.metrics.lastCommitAt;
         if (!existing.install) {
           existing.install = {
             type: "npm",
@@ -324,6 +329,7 @@ export async function mergeAllSources(): Promise<MCPServer[]> {
           envVars: [],
           metrics: {
             ...emptyMetrics(),
+            lastCommitAt: entry.lastUpdated,
             npmWeeklyDownloads: entry.weeklyDownloads,
           },
           license: entry.license,

@@ -32,6 +32,7 @@ export interface WebServerItem {
   dl: number | null;
   lic: string | null;
   srcs: string[];
+  updatedAt: string | null;
 }
 
 export interface CatalogStats {
@@ -100,6 +101,7 @@ async function buildCatalog() {
       dl: s.metrics?.npmWeeklyDownloads ?? null,
       lic: s.license ?? null,
       srcs: s.sources || [],
+      updatedAt: s.metrics?.lastCommitAt ? s.metrics.lastCommitAt.split('T')[0] : null,
     });
   }
 

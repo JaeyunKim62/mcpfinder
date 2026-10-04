@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutGrid, Table, Sparkles, Terminal, Code2 } from 'lucide-react';
+import { LayoutGrid, Table, Sparkles, Terminal, Code2, Clock } from 'lucide-react';
 import { FilterState } from '../types';
 import { Locale, translations } from '../i18n';
 
@@ -69,6 +69,19 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             {t.installReadyOnly}
           </span>
         </label>
+
+        {/* Quick Checkbox: Recently Updated Only */}
+        <label className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl cursor-pointer select-none hover:bg-slate-100 dark:hover:bg-slate-800">
+          <input
+            type="checkbox"
+            checked={filters.recentOnly}
+            onChange={(e) => onFilterChange({ recentOnly: e.target.checked })}
+            className="rounded text-brand-600 focus:ring-brand-500 w-3.5 h-3.5"
+          />
+          <span className="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1">
+            <Clock className="w-3 h-3 text-emerald-500" /> {t.recentOnly}
+          </span>
+        </label>
       </div>
 
       {/* Right side: Count, Sort, and View Switcher */}
@@ -84,6 +97,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           className="bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl px-2.5 py-1.5 text-slate-700 dark:text-slate-300 font-medium focus:outline-none cursor-pointer"
         >
           <option value="popularity">{t.sortByPopularity}</option>
+          <option value="newest">{t.sortByNewest}</option>
           <option value="downloads">{t.sortByDownloads}</option>
           <option value="name">{t.sortByName}</option>
         </select>

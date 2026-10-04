@@ -47,12 +47,15 @@ export const translations = {
     allLanguages: 'All Languages',
     officialOnly: 'Verified / Official',
     installReadyOnly: 'Install Ready Only',
+    recentOnly: 'Updated Recently (Active)',
     serversFound: 'servers found',
     sortByPopularity: 'Sort by: Popularity',
     sortByDownloads: 'Sort by: Downloads',
+    sortByNewest: 'Sort by: Recently Updated',
     sortByName: 'Sort by: Name (A-Z)',
     cardGridView: 'Card Grid View',
     compactTableView: 'Compact Table View',
+    updatedAt: 'Updated',
 
     // Card & Table
     official: 'Official',
@@ -145,12 +148,15 @@ export const translations = {
     allLanguages: '전체 언어',
     officialOnly: '공식 / 검증됨',
     installReadyOnly: '즉시 설치 가능만',
+    recentOnly: '최근 갱신된 서버만 (Active)',
     serversFound: '개 서버 검색됨',
     sortByPopularity: '정렬: 인기도순',
     sortByDownloads: '정렬: 다운로드순',
+    sortByNewest: '정렬: 최신 업데이트순',
     sortByName: '정렬: 이름순 (A-Z)',
     cardGridView: '카드 그리드 뷰',
     compactTableView: '압축 테이블 뷰',
+    updatedAt: '최근 갱신',
 
     // Card & Table
     official: '공식 인증',

@@ -21,7 +21,8 @@
     "srcs": [
       "awesome-list",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-23"
   },
   {
     "id": "hermoso-ai/hermoso",
@@ -57,7 +58,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-30"
   },
   {
     "id": "tokportal/tokportal-mcp",
@@ -88,7 +90,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-22"
   },
   {
     "id": "openephemeris/openephemeris-mcp",
@@ -113,7 +116,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-10-01"
   },
   {
     "id": "churichard/fluxmail",
@@ -159,7 +163,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-29"
   },
   {
     "id": "luno-cms/mcp",
@@ -195,7 +200,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-22"
   },
   {
     "id": "vruum-gtm/mcp",
@@ -220,7 +226,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-23"
   },
   {
     "id": "api7/apisix-mcp",
@@ -244,7 +251,8 @@
     "srcs": [
       "awesome-list",
       "npm"
-    ]
+    ],
+    "updatedAt": "2025-04-10"
   },
   {
     "id": "fouradata/mcp",
@@ -275,7 +283,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-22"
   },
   {
     "id": "aeoess/agent-passport-mcp",
@@ -300,7 +309,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-22"
   },
   {
     "id": "hypawave/mcp",
@@ -341,7 +351,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-24"
   },
   {
     "id": "andresdefi/zerodust",
@@ -417,7 +428,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-30"
   },
   {
     "id": "wavespeedai/mcp-server",
@@ -458,7 +470,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-10-01"
   },
   {
     "id": "illodev/workfile",
@@ -483,7 +496,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-14"
   },
   {
     "id": "canopy-labs/featureflip-mcp",
@@ -524,7 +538,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-10-01"
   },
   {
     "id": "litescrape/litescrape-mcp-server",
@@ -555,7 +570,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-23"
   },
   {
     "id": "serkan-ozal/driflyte-mcp-server",
@@ -580,7 +596,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2025-09-30"
   },
   {
     "id": "krovacloud/krova-node",
@@ -621,7 +638,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-27"
   },
   {
     "id": "redhold/diagrams-mcp-app-core",
@@ -662,7 +680,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-08-19"
   },
   {
     "id": "arcadia-finance/mcp-server",
@@ -728,7 +747,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-08-10"
   },
   {
     "id": "agentmetal/mcp",
@@ -753,7 +773,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-07-02"
   },
   {
     "id": "rendobar/mcp",
@@ -784,7 +805,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-13"
   },
   {
     "id": "zaialamm/citable-mcp",
@@ -808,7 +830,8 @@
     "srcs": [
       "awesome-list",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-01"
   },
   {
     "id": "humanpen/humanpen-mcp",
@@ -839,7 +862,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-08-12"
   },
   {
     "id": "phononx/cv-mcp-server",
@@ -863,7 +887,8 @@
     "srcs": [
       "awesome-list",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-16"
   },
   {
     "id": "questdb/mcp-server-questdb",
@@ -909,7 +934,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-30"
   },
   {
     "id": "blazingcdn/blazingcdn-mcp",
@@ -950,7 +976,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-14"
   },
   {
     "id": "openpouch/openpouch",
@@ -975,7 +1002,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-07-18"
   },
   {
     "id": "ucsandman/dashclaw",
@@ -1016,7 +1044,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-05"
   },
   {
     "id": "elicitly/elicitly",
@@ -1041,7 +1070,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-07"
   },
   {
     "id": "memebo-at/memeboat-mcp",
@@ -1066,7 +1096,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-07-06"
   },
   {
     "id": "serpdive/serpdive-mcp",
@@ -1097,7 +1128,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-07-25"
   },
   {
     "id": "hemmabo-se/hemmabo-mcp-server",
@@ -1122,7 +1154,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-05"
   },
   {
     "id": "humanforai/humanforai-mcp",
@@ -1147,7 +1180,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-07-13"
   },
   {
     "id": "oddunits/pntr-cli",
@@ -1172,7 +1206,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-07-30"
   },
   {
     "id": "gonnagetapower/kelvia-mcp",
@@ -1213,7 +1248,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-08-10"
   },
   {
     "id": "callbk/finlight-mcp",
@@ -1238,7 +1274,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-08-07"
   },
   {
     "id": "solvegate/solvegate-mcp",
@@ -1289,7 +1326,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-08-25"
   },
   {
     "id": "chrassy/klanex-mcp",
@@ -1320,7 +1358,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-07-21"
   },
   {
     "id": "tooltrace-io/mcp-server",
@@ -1351,7 +1390,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-06"
   },
   {
     "id": "transcriptfetch/mcp-server",
@@ -1376,7 +1416,8 @@
       "awesome-list",
       "registry",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-10"
   },
   {
     "id": "sounny/sounnyforms-mcp",
@@ -1400,7 +1441,8 @@
     "srcs": [
       "awesome-list",
       "npm"
-    ]
+    ],
+    "updatedAt": "2026-09-02"
   },
   {
     "id": "2ools/mcp-server",
@@ -1424,7 +1466,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-07"
   },
   {
     "id": "4everland/4everland-hosting-mcp",
@@ -1447,7 +1490,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "930m310n/geomelon-mcp",
@@ -1482,7 +1526,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-17"
   },
   {
     "id": "adaptlypost/agent",
@@ -1505,7 +1550,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "afiliptsov/pickadive-mcp",
@@ -1529,7 +1575,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-25"
   },
   {
     "id": "ahmetsbilgin/finbrain-mcp",
@@ -1552,7 +1599,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "ahnlabio/bicscan-mcp",
@@ -1575,7 +1623,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "aidc2026ai-melon/aidc-ai-mcp",
@@ -1598,7 +1647,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "aioproductos/claude-plugin",
@@ -1628,7 +1678,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-06"
   },
   {
     "id": "aioproductos/studio-mcp",
@@ -1652,7 +1703,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-21"
   },
   {
     "id": "aisa-public/aisa-mcp-server",
@@ -1675,7 +1727,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "aistoryhub/etincel",
@@ -1699,7 +1752,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-15"
   },
   {
     "id": "aiven-open/mcp-aiven",
@@ -1744,7 +1798,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-22"
   },
   {
     "id": "alchemyplatform/alchemy-mcp-server",
@@ -1767,7 +1822,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "alexar76/aimarket-mcp",
@@ -1807,7 +1863,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-16"
   },
   {
     "id": "alexar76/argus",
@@ -1831,7 +1888,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-23"
   },
   {
     "id": "aliyun/alibaba-cloud-ops-mcp-server",
@@ -1854,7 +1912,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "alttextai/alttext-mcp",
@@ -1889,7 +1948,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-17"
   },
   {
     "id": "ambeelabs/ambee-mcp",
@@ -1912,7 +1972,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "amirdaraee/luxembourg-mcp",
@@ -1936,7 +1997,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-17"
   },
   {
     "id": "amitesh-m/wealthville-integrations",
@@ -1971,7 +2033,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-27"
   },
   {
     "id": "ant-dev-lab/nightmarquee-mcp",
@@ -2011,7 +2074,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-02"
   },
   {
     "id": "antvis/mcp-server-chart",
@@ -2051,7 +2115,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2025-09-15"
   },
   {
     "id": "apancyborg/appsgolem-mcp",
@@ -2086,7 +2151,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-24"
   },
   {
     "id": "appwrite/mcp",
@@ -2110,7 +2176,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-10-01"
   },
   {
     "id": "aradia-systems/aradia-mcp-server",
@@ -2134,7 +2201,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-23"
   },
   {
     "id": "arcadedata/arcadedb",
@@ -2158,7 +2226,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-03-09"
   },
   {
     "id": "arslan2012/qpost-mcp",
@@ -2193,7 +2262,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-25"
   },
   {
     "id": "artemchuikin/youtube-mcp",
@@ -2217,7 +2287,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-23"
   },
   {
     "id": "asyntai/mcp-bridge",
@@ -2240,7 +2311,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "awslabs/mcp",
@@ -2263,7 +2335,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "backblaze-labs/b2-mcp",
@@ -2313,7 +2386,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-29"
   },
   {
     "id": "bankstatemently/plugins",
@@ -2337,7 +2411,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-30"
   },
   {
     "id": "bartekrutkowski/watchgoose-mcp",
@@ -2367,7 +2442,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-04"
   },
   {
     "id": "bguillow-rgb/percolate-mcp",
@@ -2391,7 +2467,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-16"
   },
   {
     "id": "bguillow-rgb/perfume-picks-mcp",
@@ -2415,7 +2492,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-16"
   },
   {
     "id": "bguillow-rgb/pour-picks-mcp",
@@ -2439,7 +2517,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-16"
   },
   {
     "id": "bidsketch/signwell-mcp",
@@ -2469,7 +2548,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-29"
   },
   {
     "id": "bitcompare/mcp-server",
@@ -2492,7 +2572,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "bitrise-io/bitrise-mcp",
@@ -2516,7 +2597,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-06-12"
   },
   {
     "id": "bodyegypt/lobbyvoices-mcp",
@@ -2539,7 +2621,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "bouncewatch/mcp",
@@ -2562,7 +2645,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "box/mcp-server-box-remote",
@@ -2585,7 +2669,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "brightbeamai/chap",
@@ -2620,7 +2705,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-07"
   },
   {
     "id": "browserless/browserless-mcp",
@@ -2643,7 +2729,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "buildkite/buildkite-mcp-server",
@@ -2673,7 +2760,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2025-10-10"
   },
   {
     "id": "cammac-creator/ibanforge",
@@ -2708,7 +2796,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-29"
   },
   {
     "id": "campertunity/mcp-server",
@@ -2731,7 +2820,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "cassette-editor/oh-my-cassette",
@@ -2755,7 +2845,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-03"
   },
   {
     "id": "celineycn/quantdata-plugin",
@@ -2779,7 +2870,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-01"
   },
   {
     "id": "chroma-core/chroma-mcp",
@@ -2802,7 +2894,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "chronary/chronary-mcp",
@@ -2832,7 +2925,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-14"
   },
   {
     "id": "citlyze/citlyze-mcp",
@@ -2855,7 +2949,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "cleanor-app/cleanor-mcp",
@@ -2879,7 +2974,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-14"
   },
   {
     "id": "clipkit-video/clipkit",
@@ -2903,7 +2999,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-16"
   },
   {
     "id": "cloudflare/mcp-server-cloudflare",
@@ -2927,7 +3024,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2025-09-16"
   },
   {
     "id": "codelogicincengineering/codelogic-mcp-server",
@@ -2977,7 +3075,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-30"
   },
   {
     "id": "codex-data/codex-mcp",
@@ -3000,7 +3099,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "cogdepot/mcp-server",
@@ -3055,7 +3155,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-13"
   },
   {
     "id": "coinpaprika/coinpaprika-mcp",
@@ -3079,7 +3180,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-19"
   },
   {
     "id": "coinpaprika/dexpaprika-mcp",
@@ -3103,7 +3205,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-29"
   },
   {
     "id": "comet-ml/opik-mcp",
@@ -3143,7 +3246,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-05-29"
   },
   {
     "id": "cometchat/docs-mcp",
@@ -3167,7 +3271,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-22"
   },
   {
     "id": "conan-io/conan-mcp",
@@ -3190,7 +3295,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "configcat/mcp-server",
@@ -3230,7 +3336,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2025-10-21"
   },
   {
     "id": "couchbase-ecosystem/mcp-server-couchbase",
@@ -3253,7 +3360,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "crisphive/crisphive-mcp",
@@ -3288,7 +3396,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-27"
   },
   {
     "id": "crosspaste/crosspaste-desktop",
@@ -3311,7 +3420,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "cryptobriefing/gloria-mcp",
@@ -3334,7 +3444,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "cyclops-ui/mcp-cyclops",
@@ -3357,7 +3468,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "d4umak/linkedin-outreach-mcp",
@@ -3381,7 +3493,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-30"
   },
   {
     "id": "dataeval/dingo",
@@ -3404,7 +3517,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "datanika-io/datanika-core",
@@ -3444,7 +3558,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-21"
   },
   {
     "id": "dbt-labs/dbt-mcp",
@@ -3467,7 +3582,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "debitura/debitura.mcp",
@@ -3491,7 +3607,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-06-23"
   },
   {
     "id": "devflowinc/trieve",
@@ -3514,7 +3631,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "dialgoodian/clawdcall-mcp",
@@ -3538,7 +3656,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-06"
   },
   {
     "id": "discourse/discourse-mcp",
@@ -3562,7 +3681,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-25"
   },
   {
     "id": "dizpers/polystrike-examples",
@@ -3585,7 +3705,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "dnsdoctor/claude-plugin",
@@ -3609,7 +3730,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-16"
   },
   {
     "id": "docker/hub-mcp",
@@ -3632,7 +3754,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "dodopayments/dodo-agent-plugin",
@@ -3655,7 +3778,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "dpkdhingra91/aiia-mcp-server",
@@ -3678,7 +3802,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "drumst0ck/uploadkit",
@@ -3702,7 +3827,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-04-14"
   },
   {
     "id": "dumpling-ai/mcp-server-dumplingai",
@@ -3725,7 +3851,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "dynatrace-oss/dynatrace-managed-mcp",
@@ -3775,7 +3902,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-01"
   },
   {
     "id": "echoloc-ai/echoloc-mcp",
@@ -3798,7 +3926,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "edgedelta/edgedelta-mcp-server",
@@ -3821,7 +3950,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "elfsight/beamtrace-mcp",
@@ -3844,7 +3974,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "eliottreich/crawdar-mcp",
@@ -3867,7 +3998,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "emailens/mcp",
@@ -3897,7 +4029,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-23"
   },
   {
     "id": "emblemcompany/agent-skills",
@@ -3920,7 +4053,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "entia-ia/entia-mcp-server",
@@ -3944,7 +4078,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-18"
   },
   {
     "id": "equinoxaifinance-rgb/civicdataforge-mcp",
@@ -3968,7 +4103,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-26"
   },
   {
     "id": "equivault/equivault-mcp",
@@ -3991,7 +4127,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "espressif/esp-rainmaker-mcp",
@@ -4014,7 +4151,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "everstake/mcp",
@@ -4038,7 +4176,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-26"
   },
   {
     "id": "everypageapp/everypage-mcp",
@@ -4078,7 +4217,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-18"
   },
   {
     "id": "exa-labs/exa-mcp-server",
@@ -4102,7 +4242,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-23"
   },
   {
     "id": "extentos/mcp-server",
@@ -4126,7 +4267,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-05"
   },
   {
     "id": "fareastai/feode-mcp",
@@ -4150,7 +4292,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-01"
   },
   {
     "id": "fastalertnow/mcp-server",
@@ -4174,7 +4317,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-02-16"
   },
   {
     "id": "fatenava/fatenava-mcp",
@@ -4198,7 +4342,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-01"
   },
   {
     "id": "findsaunaplunge/mcp",
@@ -4222,7 +4367,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-27"
   },
   {
     "id": "firecrawl/firecrawl-mcp-server",
@@ -4252,7 +4398,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-10-01"
   },
   {
     "id": "flight-master-dast/aviation-data-mcp",
@@ -4282,7 +4429,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-08"
   },
   {
     "id": "flowcore-io/mcp-flowcore-platform",
@@ -4305,7 +4453,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "forcedreamai/forcedream-mcp",
@@ -4335,7 +4484,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-21"
   },
   {
     "id": "foundrynet/mint-mcp",
@@ -4359,7 +4509,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-06-09"
   },
   {
     "id": "fstandhartinger/sandbox-as-a-service-mcp",
@@ -4389,7 +4540,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-22"
   },
   {
     "id": "gainium/gainium-mcp",
@@ -4434,7 +4586,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-06-17"
   },
   {
     "id": "gba3124/anyhook-mcp",
@@ -4469,7 +4622,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-25"
   },
   {
     "id": "gearotons/servomotor-mcp",
@@ -4509,7 +4663,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-22"
   },
   {
     "id": "geolens-io/geolens",
@@ -4549,7 +4704,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-28"
   },
   {
     "id": "get-tmonier/argot",
@@ -4573,7 +4729,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-13"
   },
   {
     "id": "getalai/alai-mcp-server",
@@ -4597,7 +4754,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-04-18"
   },
   {
     "id": "getalby/mcp",
@@ -4620,7 +4778,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "getanyapi-com/mcp",
@@ -4650,7 +4809,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-06"
   },
   {
     "id": "getnahook/nahook-mcp",
@@ -4673,7 +4833,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "getrephonic/rephonic-mcp",
@@ -4697,7 +4858,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-04"
   },
   {
     "id": "gitkraken/gk-cli",
@@ -4721,7 +4883,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-13"
   },
   {
     "id": "glennprime/synthnet-mcp",
@@ -4751,7 +4914,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-16"
   },
   {
     "id": "gofireflyio/firefly-mcp",
@@ -4774,7 +4938,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "gondola-ai/gondola-mcp",
@@ -4798,7 +4963,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-16"
   },
   {
     "id": "grafana/mcp-grafana",
@@ -4858,7 +5024,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-10-01"
   },
   {
     "id": "greencalculus/greencalculus-mcp",
@@ -4881,7 +5048,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "growilabs/growi-mcp-server",
@@ -4904,7 +5072,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "growsurf/growsurf-mcp",
@@ -4944,7 +5113,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-30"
   },
   {
     "id": "growthbook/growthbook-mcp",
@@ -4989,7 +5159,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-11"
   },
   {
     "id": "haljishi/vidwords-mcp",
@@ -5013,7 +5184,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-22"
   },
   {
     "id": "hardeyhemy/revnuvo-dev",
@@ -5036,7 +5208,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "hashicorp/terraform-mcp-server",
@@ -5060,7 +5233,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-06-10"
   },
   {
     "id": "heurist-network/heurist-mesh-mcp-server",
@@ -5083,7 +5257,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "homespunapps/homespun",
@@ -5128,7 +5303,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-27"
   },
   {
     "id": "hosttracker/mcp",
@@ -5152,7 +5328,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-30"
   },
   {
     "id": "human-beyond/mainbook-mcp",
@@ -5182,7 +5359,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-20"
   },
   {
     "id": "humansignal/label-studio-mcp-server",
@@ -5205,7 +5383,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "hydrolix/mcp-hydrolix",
@@ -5250,7 +5429,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-04-09"
   },
   {
     "id": "hyperiux-immersion-labs/hyperiux-components",
@@ -5274,7 +5454,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-21"
   },
   {
     "id": "ianewsfr-a11y/ergonia",
@@ -5298,7 +5479,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-31"
   },
   {
     "id": "iaptic/mcp-server-iaptic",
@@ -5321,7 +5503,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "iletimerkezi/iletimerkezi-mcp-server",
@@ -5344,7 +5527,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "ilia-sokolov/officeagent.net",
@@ -5384,7 +5568,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-30"
   },
   {
     "id": "imbawallet/agent-mcp",
@@ -5407,7 +5592,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "infino-ai/code-context",
@@ -5457,7 +5643,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-21"
   },
   {
     "id": "infino-ai/infino-mcp",
@@ -5517,7 +5704,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-10-01"
   },
   {
     "id": "influxdata/influxdb3_mcp_server",
@@ -5540,7 +5728,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "infobip/mcp",
@@ -5564,7 +5753,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2025-10-20"
   },
   {
     "id": "integromat/make-mcp-server",
@@ -5587,7 +5777,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "investorphem/abapay",
@@ -5611,7 +5802,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-30"
   },
   {
     "id": "iplocate/mcp-server-iplocate",
@@ -5634,7 +5826,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "isco-tec/scorezilla-mcp",
@@ -5664,7 +5857,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-06-22"
   },
   {
     "id": "jakzaizzat/cukaimax-agent",
@@ -5688,7 +5882,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-09"
   },
   {
     "id": "jeanfrancoisgagne/crapkit",
@@ -5712,7 +5907,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-10-01"
   },
   {
     "id": "jetbrains/mcpproxy",
@@ -5735,7 +5931,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "jsdelivr/globalping-mcp-server",
@@ -5759,7 +5956,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2025-09-09"
   },
   {
     "id": "jungle-grid/mcp-server",
@@ -5782,7 +5980,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "kakunin-ai/kakunin-mcp",
@@ -5817,7 +6016,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-09"
   },
   {
     "id": "keenableai/keenable-mcp",
@@ -5847,7 +6047,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-06-26"
   },
   {
     "id": "kenzotp/mcp-server-zuuna",
@@ -5887,7 +6088,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-26"
   },
   {
     "id": "klever-io/mcp-klever-vm",
@@ -5911,7 +6113,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-03-19"
   },
   {
     "id": "kucherenko/jscpd",
@@ -5934,7 +6137,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "kudosity/mcp",
@@ -5969,7 +6173,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-27"
   },
   {
     "id": "labelgrid/labelgrid-mcp",
@@ -6029,7 +6234,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-27"
   },
   {
     "id": "labs64/netlicensing-mcp",
@@ -6052,7 +6258,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "librejustice/librejustice",
@@ -6076,7 +6283,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-30"
   },
   {
     "id": "limzocom/limzo-mcp",
@@ -6100,7 +6308,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-18"
   },
   {
     "id": "linked-api/linkedapi-mcp",
@@ -6123,7 +6332,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "linkly-hq/linkly-mcp-server",
@@ -6147,7 +6357,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-06-22"
   },
   {
     "id": "liveblocks/liveblocks-mcp-server",
@@ -6170,7 +6381,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "lizard-build/lizard-mcp",
@@ -6193,7 +6405,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "llm-pulse/llmpulse-mcp",
@@ -6217,7 +6430,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-06"
   },
   {
     "id": "localstack/localstack-mcp-server",
@@ -6297,7 +6511,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-06-17"
   },
   {
     "id": "logisky/logisheets-mcp",
@@ -6327,7 +6542,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-29"
   },
   {
     "id": "longbridge/longbridge-mcp",
@@ -6367,7 +6583,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-21"
   },
   {
     "id": "longevity-genie/opengenes-mcp",
@@ -6390,7 +6607,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "longevity-genie/synergy-age-mcp",
@@ -6413,7 +6631,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "luiacuaniello/perspectivegraph",
@@ -6443,7 +6662,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-10-01"
   },
   {
     "id": "luminc/peil-mcp",
@@ -6478,7 +6698,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-25"
   },
   {
     "id": "m00nreport/mcp-server",
@@ -6528,7 +6749,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-23"
   },
   {
     "id": "macrocosm-os/macrocosmos-mcp",
@@ -6551,7 +6773,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "makeev/alphai-mcp",
@@ -6575,7 +6798,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-13"
   },
   {
     "id": "marvy101/pod-mcp",
@@ -6598,7 +6822,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "maxfain/basedagents",
@@ -6622,7 +6847,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-29"
   },
   {
     "id": "mckinsey/vizro",
@@ -6645,7 +6871,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "mcpqueen/mcpqueen",
@@ -6669,7 +6896,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-28"
   },
   {
     "id": "mediar-ai/screenpipe",
@@ -6692,7 +6920,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "melbis/melbis-shop",
@@ -6715,7 +6944,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "meser10/meser10-mcp",
@@ -6760,7 +6990,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-19"
   },
   {
     "id": "metorial/metorial",
@@ -6783,7 +7014,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "metoro-io/metoro-mcp-server",
@@ -6806,7 +7038,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "michalperni11-gif/secfinapi-mcp",
@@ -6829,7 +7062,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "microsoft/markitdown",
@@ -6852,7 +7086,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "microsoft/mcp",
@@ -6876,7 +7111,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-02-27"
   },
   {
     "id": "mirastacklabs-ai/mirastack-redfish-mcp",
@@ -6966,7 +7202,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-11"
   },
   {
     "id": "mkirovbg/scribefy-mcp",
@@ -7001,7 +7238,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-06-02"
   },
   {
     "id": "mmxrealqq/bobai-buyburn",
@@ -7024,7 +7262,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "mnemosyne-os/mnemosyne-neural-os",
@@ -7064,7 +7303,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-16"
   },
   {
     "id": "mobb-dev/bugsy",
@@ -7087,7 +7327,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "mohamed-ashraf-elsaed/loupe",
@@ -7110,7 +7351,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "mutonby/openshorts",
@@ -7134,7 +7376,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-03"
   },
   {
     "id": "netdata/netdata",
@@ -7158,7 +7401,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-30"
   },
   {
     "id": "nimbus-agent/nimbus",
@@ -7181,7 +7425,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "octagonai/octagon-deep-research-mcp",
@@ -7204,7 +7449,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "odd-innocent/den_archi_mcp",
@@ -7228,7 +7474,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-07"
   },
   {
     "id": "off-nadir-lab/offnadir-delta-mcp",
@@ -7252,7 +7499,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-10-01"
   },
   {
     "id": "offorte/offorte-mcp-server",
@@ -7275,7 +7523,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "oilpriceapi/mcp-server",
@@ -7320,7 +7569,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-13"
   },
   {
     "id": "onvaou-app/onvaou-itineraires-mcp",
@@ -7355,7 +7605,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-23"
   },
   {
     "id": "opendatalab/mineru-ecosystem",
@@ -7390,7 +7641,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-04-13"
   },
   {
     "id": "openitcockpit/openitcockpit-mcp-server",
@@ -7440,7 +7692,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-17"
   },
   {
     "id": "ophis-fi/ophis",
@@ -7464,7 +7717,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-29"
   },
   {
     "id": "optuna/optuna-mcp",
@@ -7487,7 +7741,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "oscarleoo/chartlink-agents",
@@ -7517,7 +7772,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-16"
   },
   {
     "id": "panther-labs/mcp-panther",
@@ -7540,7 +7796,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "pantrist-dev/pantrist-mcp",
@@ -7563,7 +7820,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "pearch-ai/mcp_pearch",
@@ -7586,7 +7844,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "pedra-ai/pedra-mcp",
@@ -7616,7 +7875,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-10-01"
   },
   {
     "id": "pepabo/colormeshop-mcp",
@@ -7640,7 +7900,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-04-21"
   },
   {
     "id": "pepabo/muumuu-domain-mcp",
@@ -7664,7 +7925,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-04-21"
   },
   {
     "id": "perspective-ai/mcp",
@@ -7688,7 +7950,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-04-28"
   },
   {
     "id": "pinecone-io/assistant-mcp",
@@ -7711,7 +7974,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "pingfyr/mcp",
@@ -7735,7 +7999,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-05-22"
   },
   {
     "id": "plori-ai/plori",
@@ -7759,7 +8024,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-28"
   },
   {
     "id": "poolside-ventures/meetbot-mcp",
@@ -7782,7 +8048,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "posthog/posthog",
@@ -7806,7 +8073,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-01-07"
   },
   {
     "id": "postmcp/postmcp-mcp-server",
@@ -7841,7 +8109,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-02"
   },
   {
     "id": "predictionmarketspicks/mcp",
@@ -7865,7 +8134,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-10"
   },
   {
     "id": "prepublish/prepublish-mcp",
@@ -7888,7 +8158,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "proofpane/releases",
@@ -7911,7 +8182,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "publee-dev/mcp",
@@ -7934,7 +8206,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "publora/mcp-server",
@@ -7958,7 +8231,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-04"
   },
   {
     "id": "pydantic/logfire-mcp",
@@ -7981,7 +8255,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "quantumproxies/quanticdata-mcp-server",
@@ -8011,7 +8286,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-28"
   },
   {
     "id": "quantumproxies/quantumproxies-mcp",
@@ -8034,7 +8310,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "rantumbits/addressintel-mcp",
@@ -8064,7 +8341,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-08-19"
   },
   {
     "id": "reachpad/reachpad-mcp",
@@ -8099,7 +8377,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-02"
   },
   {
     "id": "reflagcom/javascript",
@@ -8122,7 +8401,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "regan-milne/obsideo-mcp",
@@ -8146,7 +8426,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-25"
   },
   {
     "id": "reviewgate/reviewgate",
@@ -8169,7 +8450,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "roamzy-io/mcp-server",
@@ -8209,7 +8491,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-07"
   },
   {
     "id": "rooquiz/rooquiz-mcp",
@@ -8232,7 +8515,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "rootly-ai-labs/rootly-mcp-server",
@@ -8262,7 +8546,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-02-18"
   },
   {
     "id": "runcomfy-com/runcomfy-mcp",
@@ -8286,7 +8571,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-07"
   },
   {
     "id": "s2-streamstore/mcp",
@@ -8309,7 +8595,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "safedep/vet",
@@ -8333,7 +8620,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-16"
   },
   {
     "id": "sagapeak/artifacta-mcp",
@@ -8363,7 +8651,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-06-30"
   },
   {
     "id": "sam1siam/astrofabric-mcp",
@@ -8386,7 +8675,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "savvly/savvly-mcp",
@@ -8410,7 +8700,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-09-09"
   },
   {
     "id": "scalekit-inc/scalekit-mcp-server",
@@ -8433,7 +8724,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "schemacrawler/schemacrawler-mcp-server-usage",
@@ -8456,7 +8748,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "searchcraft-inc/searchcraft-mcp-server",
@@ -8479,7 +8772,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "seedfast-ai/seedfast-mcp",
@@ -8502,7 +8796,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "sekera-radim/impri",
@@ -8537,7 +8832,8 @@
     "srcs": [
       "awesome-list",
       "registry"
-    ]
+    ],
+    "updatedAt": "2026-07-12"
   },
   {
     "id": "semgrep/semgrep",
@@ -8560,7 +8856,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "sendchamp/ai",
@@ -8583,7 +8880,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "sensie-agents/vibecheck",
@@ -8606,7 +8904,8 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   },
   {
     "id": "seocrawl/seocrawl-mcp",
@@ -8629,6 +8928,7 @@
     "lic": null,
     "srcs": [
       "awesome-list"
-    ]
+    ],
+    "updatedAt": null
   }
 ]
