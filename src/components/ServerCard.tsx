@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Sparkles, Terminal, Copy, Check, Layers, ExternalLink, Cloud, Laptop, Code2, ArrowDownToLine } from 'lucide-react';
+import { Sparkles, Terminal, Copy, Check, Layers, ExternalLink, Cloud, Laptop } from 'lucide-react';
 import { ServerItem } from '../types';
+import { Locale, translations, getCategoryLabel } from '../i18n';
 
 interface ServerCardProps {
   server: ServerItem;
   isInStack: boolean;
   onToggleStack: (server: ServerItem) => void;
   onConfigure: (server: ServerItem) => void;
+  locale: Locale;
 }
 
 export const ServerCard: React.FC<ServerCardProps> = ({
@@ -14,8 +16,10 @@ export const ServerCard: React.FC<ServerCardProps> = ({
   isInStack,
   onToggleStack,
   onConfigure,
+  locale,
 }) => {
   const [copied, setCopied] = useState(false);
+  const t = translations[locale];
 
   const handleCopyCmd = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -41,6 +45,8 @@ export const ServerCard: React.FC<ServerCardProps> = ({
     }
   };
 
+  const categoryLabel = getCategoryLabel(server.cat, locale);
+
   return (
     <div
       onClick={() => onConfigure(server)}
@@ -51,24 +57,24 @@ export const ServerCard: React.FC<ServerCardProps> = ({
         <div className="flex items-center justify-between gap-2 mb-2.5">
           <div className="flex items-center gap-1.5 flex-wrap">
             <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60">
-              {server.cat}
+              {categoryLabel}
             </span>
             {getLanguageBadge(server.lang)}
             {server.scope === 'cloud' && (
               <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900/50">
-                <Cloud className="w-2.5 h-2.5" /> Remote
+                <Cloud className="w-2.5 h-2.5" /> {t.remote}
               </span>
             )}
             {server.scope === 'local' && (
               <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
-                <Laptop className="w-2.5 h-2.5" /> Local
+                <Laptop className="w-2.5 h-2.5" /> {t.local}
               </span>
             )}
           </div>
 
           {server.off && (
             <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
-              <Sparkles className="w-3 h-3" /> Official
+              <Sparkles className="w-3 h-3" /> {t.official}
             </span>
           )}
         </div>
@@ -94,7 +100,7 @@ export const ServerCard: React.FC<ServerCardProps> = ({
 
         {/* Description */}
         <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed mb-4">
-          {server.desc || 'No description provided.'}
+          {server.desc || t.noDesc}
         </p>
       </div>
 
@@ -114,7 +120,7 @@ export const ServerCard: React.FC<ServerCardProps> = ({
           </div>
         ) : (
           <div className="flex items-center px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-950/40 border border-dashed border-slate-200 dark:border-slate-800 text-[11px] text-slate-400 font-mono">
-            {server.scope === 'cloud' ? 'Remote endpoint configuration' : 'Manual installation'}
+            {server.scope === 'cloud' ? t.remoteConfigNotice : t.manualInstallNotice}
           </div>
         )}
 
@@ -128,7 +134,7 @@ export const ServerCard: React.FC<ServerCardProps> = ({
             className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl bg-brand-50 dark:bg-brand-950/50 hover:bg-brand-100 dark:hover:bg-brand-900/60 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800 transition-all"
           >
             <Terminal className="w-3.5 h-3.5" />
-            Configure
+            {t.configure}
           </button>
 
           <button
@@ -144,7 +150,7 @@ export const ServerCard: React.FC<ServerCardProps> = ({
             title={isInStack ? 'Remove from Stack' : 'Add to Stack'}
           >
             <Layers className="w-3.5 h-3.5" />
-            <span>{isInStack ? 'In Stack' : '+ Stack'}</span>
+            <span>{isInStack ? t.inStack : t.addStack}</span>
           </button>
         </div>
       </div>

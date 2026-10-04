@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import { X, Copy, Check, Download, Terminal, Info, ExternalLink, Sparkles, KeyRound } from 'lucide-react';
 import { ServerItem, SupportedClient } from '../types';
 import { generateClientConfig } from '../utils/configGenerator';
+import { Locale, translations, getCategoryLabel } from '../i18n';
 
 interface ConfigModalProps {
   server: ServerItem | null;
   onClose: () => void;
+  locale: Locale;
 }
 
-export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose }) => {
+export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose, locale }) => {
   if (!server) return null;
 
+  const t = translations[locale];
   const [activeClient, setActiveClient] = useState<SupportedClient>('claude');
   const [copied, setCopied] = useState(false);
   const [envInputs, setEnvInputs] = useState<Record<string, string>>({});
@@ -46,6 +49,8 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose }) => 
     { id: 'claude_code', label: 'Claude Code CLI' },
   ];
 
+  const categoryLabel = getCategoryLabel(server.cat, locale);
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-fadeIn">
       <div
@@ -65,12 +70,12 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose }) => 
                 </h2>
                 {server.off && (
                   <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
-                    <Sparkles className="w-2.5 h-2.5" /> Official
+                    <Sparkles className="w-2.5 h-2.5" /> {t.official}
                   </span>
                 )}
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
-                {server.desc || 'MCP Server Configuration & Setup Guide'}
+                {server.desc || t.configTitle}
               </p>
             </div>
           </div>
@@ -88,7 +93,7 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose }) => 
           {/* Client Selection Tabs */}
           <div>
             <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-              Select Client Application
+              {t.selectClient}
             </label>
             <div className="flex flex-wrap gap-1.5 p-1 rounded-2xl bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
               {clientTabs.map((tab) => (
@@ -112,10 +117,10 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose }) => 
             <div className="p-4 rounded-2xl bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200/80 dark:border-amber-900/40 space-y-3">
               <div className="flex items-center gap-2 text-xs font-semibold text-amber-900 dark:text-amber-200">
                 <KeyRound className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                <span>Required Credentials & Environment Variables</span>
+                <span>{t.requiredEnvVars}</span>
               </div>
               <p className="text-xs text-amber-800/80 dark:text-amber-300/80">
-                Enter your credentials below. They are rendered directly into the configuration snippet locally and never leave your browser.
+                {t.envVarsNotice}
               </p>
               <div className="space-y-2 pt-1">
                 {server.envs.map((env) => (
@@ -125,7 +130,7 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose }) => 
                     </span>
                     <input
                       type={env.secret ? 'password' : 'text'}
-                      placeholder={`Enter ${env.name}...`}
+                      placeholder={`${t.enterVarPlaceholder} ${env.name}...`}
                       value={envInputs[env.name] || ''}
                       onChange={(e) => handleEnvChange(env.name, e.target.value)}
                       className="flex-1 px-3 py-1.5 text-xs font-mono rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500/30 text-slate-900 dark:text-slate-100"
@@ -160,12 +165,12 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose }) => 
                 {copied ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Copied!</span>
+                    <span>{t.copied}</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    <span>Copy</span>
+                    <span>{t.copy}</span>
                   </>
                 )}
               </button>
@@ -175,13 +180,13 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose }) => 
           {/* Metadata badges and links */}
           <div className="pt-2 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
             <div className="flex items-center gap-3">
-              <span>Category: <strong className="text-slate-700 dark:text-slate-300">{server.cat}</strong></span>
+              <span>{t.category}: <strong className="text-slate-700 dark:text-slate-300">{categoryLabel}</strong></span>
               <span>•</span>
-              <span>Transport: <strong className="text-slate-700 dark:text-slate-300 uppercase font-mono">{server.trans}</strong></span>
+              <span>{t.transport}: <strong className="text-slate-700 dark:text-slate-300 uppercase font-mono">{server.trans}</strong></span>
               {server.lic && (
                 <>
                   <span>•</span>
-                  <span>License: <strong className="text-slate-700 dark:text-slate-300">{server.lic}</strong></span>
+                  <span>{t.license}: <strong className="text-slate-700 dark:text-slate-300">{server.lic}</strong></span>
                 </>
               )}
             </div>
@@ -194,7 +199,7 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose }) => 
                   rel="noreferrer"
                   className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
                 >
-                  GitHub Repository <ExternalLink className="w-3 h-3" />
+                  {t.githubRepo} <ExternalLink className="w-3 h-3" />
                 </a>
               )}
               {server.web && (
@@ -204,7 +209,7 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose }) => 
                   rel="noreferrer"
                   className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
                 >
-                  Website <ExternalLink className="w-3 h-3" />
+                  {t.website} <ExternalLink className="w-3 h-3" />
                 </a>
               )}
             </div>
@@ -214,7 +219,7 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose }) => 
         {/* Modal Footer */}
         <div className="p-4 px-6 border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/40 flex items-center justify-between gap-3">
           <span className="text-xs text-slate-400">
-            Copy into your client configuration file and restart the client.
+            {t.copyHint}
           </span>
           <div className="flex items-center gap-2">
             {activeClient !== 'claude_code' && (
@@ -223,7 +228,7 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose }) => 
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm"
               >
                 <Download className="w-3.5 h-3.5" />
-                Download JSON
+                {t.downloadJson}
               </button>
             )}
             <button
@@ -231,7 +236,7 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose }) => 
               className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-medium rounded-xl bg-brand-600 hover:bg-brand-500 text-white shadow-sm transition-all"
             >
               {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-              {copied ? 'Copied to Clipboard' : 'Copy Configuration'}
+              {copied ? t.copiedClipboard : t.copyConfig}
             </button>
           </div>
         </div>

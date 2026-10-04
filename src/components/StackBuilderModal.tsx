@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Layers, Copy, Check, Download, Trash2, Terminal, Sparkles } from 'lucide-react';
 import { ServerItem, SupportedClient } from '../types';
 import { generateMergedStackConfig } from '../utils/configGenerator';
+import { Locale, translations, getCategoryLabel } from '../i18n';
 
 interface StackBuilderModalProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface StackBuilderModalProps {
   stackServers: ServerItem[];
   onRemoveFromStack: (serverId: string) => void;
   onClearStack: () => void;
+  locale: Locale;
 }
 
 export const StackBuilderModal: React.FC<StackBuilderModalProps> = ({
@@ -17,9 +19,11 @@ export const StackBuilderModal: React.FC<StackBuilderModalProps> = ({
   stackServers,
   onRemoveFromStack,
   onClearStack,
+  locale,
 }) => {
   if (!isOpen) return null;
 
+  const t = translations[locale];
   const [activeClient, setActiveClient] = useState<SupportedClient>('claude');
   const [copied, setCopied] = useState(false);
 
@@ -65,14 +69,14 @@ export const StackBuilderModal: React.FC<StackBuilderModalProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-                  Custom MCP Stack Builder
+                  {t.stackModalTitle}
                 </h2>
                 <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800">
-                  {stackServers.length} Servers Selected
+                  {stackServers.length} {t.serversSelected}
                 </span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Combine multiple MCP servers into a single merged client configuration file
+                {t.stackHint}
               </p>
             </div>
           </div>
@@ -84,7 +88,7 @@ export const StackBuilderModal: React.FC<StackBuilderModalProps> = ({
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-rose-600 hover:text-rose-700 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 rounded-xl transition-colors"
               >
                 <Trash2 className="w-3.5 h-3.5" />
-                Clear All
+                {t.clearAll}
               </button>
             )}
             <button
@@ -104,10 +108,10 @@ export const StackBuilderModal: React.FC<StackBuilderModalProps> = ({
                 <Layers className="w-6 h-6" />
               </div>
               <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                Your Stack is Empty
+                {t.emptyStackTitle}
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
-                Browse servers in the directory and click "+ Stack" on any server card to add it to your custom bundle.
+                {t.emptyStackDesc}
               </p>
             </div>
           ) : (
@@ -115,7 +119,7 @@ export const StackBuilderModal: React.FC<StackBuilderModalProps> = ({
               {/* Selected Server Chips */}
               <div>
                 <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-                  Servers in Your Stack
+                  {t.serversInStack}
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {stackServers.map((s) => (
@@ -124,11 +128,11 @@ export const StackBuilderModal: React.FC<StackBuilderModalProps> = ({
                       className="inline-flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-800 dark:text-slate-200 shadow-sm"
                     >
                       <span className="font-medium truncate max-w-[200px]">{s.name}</span>
-                      <span className="text-[10px] text-slate-400">({s.cat})</span>
+                      <span className="text-[10px] text-slate-400">({getCategoryLabel(s.cat, locale)})</span>
                       <button
                         onClick={() => onRemoveFromStack(s.id)}
                         className="p-0.5 text-slate-400 hover:text-rose-500 rounded transition-colors"
-                        title="Remove"
+                        title={t.clearAll}
                       >
                         <X className="w-3.5 h-3.5" />
                       </button>
@@ -140,7 +144,7 @@ export const StackBuilderModal: React.FC<StackBuilderModalProps> = ({
               {/* Client Selection Tabs */}
               <div>
                 <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-                  Target AI Client
+                  {t.targetClient}
                 </label>
                 <div className="flex flex-wrap gap-1.5 p-1 rounded-2xl bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
                   {clientTabs.map((tab) => (
@@ -183,12 +187,12 @@ export const StackBuilderModal: React.FC<StackBuilderModalProps> = ({
                     {copied ? (
                       <>
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>Copied!</span>
+                        <span>{t.copied}</span>
                       </>
                     ) : (
                       <>
                         <Copy className="w-3.5 h-3.5" />
-                        <span>Copy Stack</span>
+                        <span>{t.copy}</span>
                       </>
                     )}
                   </button>
@@ -202,7 +206,7 @@ export const StackBuilderModal: React.FC<StackBuilderModalProps> = ({
         {stackServers.length > 0 && (
           <div className="p-4 px-6 border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/40 flex items-center justify-between gap-3">
             <span className="text-xs text-slate-400">
-              Paste into your client configuration to run all {stackServers.length} servers simultaneously.
+              {t.stackHint}
             </span>
             <div className="flex items-center gap-2">
               {activeClient !== 'claude_code' && (
@@ -211,7 +215,7 @@ export const StackBuilderModal: React.FC<StackBuilderModalProps> = ({
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  Download Stack JSON
+                  {t.downloadStack}
                 </button>
               )}
               <button
@@ -219,7 +223,7 @@ export const StackBuilderModal: React.FC<StackBuilderModalProps> = ({
                 className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-medium rounded-xl bg-brand-600 hover:bg-brand-500 text-white shadow-sm transition-all"
               >
                 {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                {copied ? 'Copied Stack' : 'Copy Combined Config'}
+                {copied ? t.copiedClipboard : t.copyStack}
               </button>
             </div>
           </div>

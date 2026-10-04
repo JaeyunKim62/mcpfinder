@@ -6,11 +6,26 @@ import { ServerTable } from './components/ServerTable';
 import { ConfigModal } from './components/ConfigModal';
 import { StackBuilderModal } from './components/StackBuilderModal';
 import { ServerItem, CatalogStats, FilterState } from './types';
+import { Locale, translations, getCategoryLabel } from './i18n';
 import { ChevronLeft, ChevronRight, Layers, Sparkles, Terminal, RefreshCw } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 36;
 
 export const App: React.FC = () => {
+  // Locale state
+  const [locale, setLocale] = useState<Locale>(() => {
+    const saved = localStorage.getItem('mcp_locale');
+    if (saved === 'ko' || saved === 'en') return saved;
+    return navigator.language.toLowerCase().startsWith('ko') ? 'ko' : 'en';
+  });
+
+  const handleLocaleChange = (newLocale: Locale) => {
+    setLocale(newLocale);
+    localStorage.setItem('mcp_locale', newLocale);
+  };
+
+  const t = translations[locale];
+
   // Theme state
   const [isDark, setIsDark] = useState<boolean>(() => {
     return (
@@ -140,9 +155,11 @@ export const App: React.FC = () => {
         const matchesName = server.name.toLowerCase().includes(q);
         const matchesDesc = server.desc.toLowerCase().includes(q);
         const matchesCat = server.cat.toLowerCase().includes(q);
+        const catTranslated = getCategoryLabel(server.cat, locale).toLowerCase();
+        const matchesTransCat = catTranslated.includes(q);
         const matchesCmd = server.cmd?.toLowerCase().includes(q);
         const matchesPkg = server.pkg?.toLowerCase().includes(q);
-        if (!matchesName && !matchesDesc && !matchesCat && !matchesCmd && !matchesPkg) {
+        if (!matchesName && !matchesDesc && !matchesCat && !matchesTransCat && !matchesCmd && !matchesPkg) {
           return false;
         }
       }
@@ -180,7 +197,7 @@ export const App: React.FC = () => {
 
       return true;
     });
-  }, [servers, filters]);
+  }, [servers, filters, locale]);
 
   // Sorting
   const sortedServers = useMemo(() => {
@@ -219,6 +236,8 @@ export const App: React.FC = () => {
         onOpenStack={() => setIsStackOpen(true)}
         isDark={isDark}
         onToggleDark={() => setIsDark((prev) => !prev)}
+        locale={locale}
+        onLocaleChange={handleLocaleChange}
       />
 
       {/* Main Container */}
@@ -229,13 +248,13 @@ export const App: React.FC = () => {
             <div className="relative z-10 max-w-2xl space-y-3">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-semibold text-brand-200 border border-white/10">
                 <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                Continuously Updated MCP Catalog
+                {t.heroBadge}
               </span>
               <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
-                Discover & Run 34,000+ Tools for Your AI Agents
+                {t.heroTitle}
               </h1>
               <p className="text-sm md:text-base text-slate-200 leading-relaxed">
-                Connect Claude Desktop, Cursor, Windsurf, Zed, and Claude Code to databases, web scrapers, developer APIs, and business systems with zero config hassle.
+                {t.heroDesc}
               </p>
             </div>
 
@@ -252,15 +271,14 @@ export const App: React.FC = () => {
           viewMode={viewMode}
           onViewModeChange={setViewMode}
           totalFilteredCount={sortedServers.length}
+          locale={locale}
         />
 
         {/* Background Full Catalog Loading Indicator */}
         {!isFullCatalogLoaded && (
           <div className="flex items-center gap-2 text-xs text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40 border border-brand-200 dark:border-brand-900/60 p-3 rounded-2xl animate-pulse">
             <RefreshCw className="w-4 h-4 animate-spin shrink-0" />
-            <span>
-              Showing top featured servers. Loading full index of <strong>34,000+ servers</strong> in the background for instant search...
-            </span>
+            <span>{t.backgroundLoading}</span>
           </div>
         )}
 
@@ -275,6 +293,7 @@ export const App: React.FC = () => {
                   isInStack={stackIds.has(server.id)}
                   onToggleStack={handleToggleStack}
                   onConfigure={setSelectedServer}
+                  locale={locale}
                 />
               ))}
             </div>
@@ -284,6 +303,7 @@ export const App: React.FC = () => {
               stackIds={stackIds}
               onToggleStack={handleToggleStack}
               onConfigure={setSelectedServer}
+              locale={locale}
             />
           )
         ) : (
@@ -292,10 +312,10 @@ export const App: React.FC = () => {
               <Terminal className="w-8 h-8" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-              No servers match your criteria
+              {t.noMatchTitle}
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
-              Try adjusting your query, selecting "All Categories", or clearing language and client filters.
+              {t.noMatchDesc}
             </p>
             <button
               onClick={() =>
@@ -312,7 +332,7 @@ export const App: React.FC = () => {
               }
               className="px-4 py-2 text-xs font-semibold rounded-xl bg-brand-600 hover:bg-brand-500 text-white shadow-sm transition-all"
             >
-              Reset Filters
+              {t.resetFilters}
             </button>
           </div>
         )}
@@ -321,8 +341,8 @@ export const App: React.FC = () => {
         {totalPages > 1 && (
           <div className="flex items-center justify-between border-t border-slate-200/80 dark:border-slate-800/80 pt-6 text-xs text-slate-500 dark:text-slate-400">
             <span>
-              Showing Page <strong className="text-slate-900 dark:text-slate-100">{page}</strong> of{' '}
-              <strong className="text-slate-900 dark:text-slate-100">{totalPages.toLocaleString()}</strong> ({sortedServers.length.toLocaleString()} total)
+              {t.showingPage} <strong className="text-slate-900 dark:text-slate-100">{page}</strong> {t.of}{' '}
+              <strong className="text-slate-900 dark:text-slate-100">{totalPages.toLocaleString()}</strong> ({sortedServers.length.toLocaleString()} {t.total})
             </span>
 
             <div className="flex items-center gap-2">
@@ -335,7 +355,7 @@ export const App: React.FC = () => {
                 className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
               >
                 <ChevronLeft className="w-4 h-4" />
-                Previous
+                {t.previous}
               </button>
 
               <button
@@ -346,7 +366,7 @@ export const App: React.FC = () => {
                 disabled={page >= totalPages}
                 className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-sm"
               >
-                Next
+                {t.next}
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
@@ -357,9 +377,7 @@ export const App: React.FC = () => {
       {/* Footer */}
       <footer className="border-t border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-950 py-8 mt-12 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
-          <p>
-            MCP Index &copy; 2026. Automatically synced every 6 hours from Official MCP Registry, punkpeye/awesome-mcp-servers, and npm.
-          </p>
+          <p>{t.footerSyncText}</p>
           <div className="flex items-center gap-4">
             <a
               href="https://modelcontextprotocol.io"
@@ -367,7 +385,7 @@ export const App: React.FC = () => {
               rel="noreferrer"
               className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
-              Protocol Docs
+              {t.protocolDocs}
             </a>
             <a
               href="https://github.com/modelcontextprotocol/servers"
@@ -375,7 +393,7 @@ export const App: React.FC = () => {
               rel="noreferrer"
               className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
-              Reference Servers
+              {t.referenceServers}
             </a>
             <a
               href="https://registry.modelcontextprotocol.io"
@@ -383,7 +401,7 @@ export const App: React.FC = () => {
               rel="noreferrer"
               className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
-              Registry Portal
+              {t.registryPortal}
             </a>
           </div>
         </div>
@@ -393,6 +411,7 @@ export const App: React.FC = () => {
       <ConfigModal
         server={selectedServer}
         onClose={() => setSelectedServer(null)}
+        locale={locale}
       />
 
       <StackBuilderModal
@@ -401,6 +420,7 @@ export const App: React.FC = () => {
         stackServers={stack}
         onRemoveFromStack={handleRemoveFromStack}
         onClearStack={() => setStack([])}
+        locale={locale}
       />
     </div>
   );
