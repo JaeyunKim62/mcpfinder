@@ -8,7 +8,8 @@ import { ConfigModal } from './components/ConfigModal';
 import { ServerItem, CatalogStats, FilterState } from './types';
 import { Locale, translations, getCategoryLabel } from './i18n';
 import { getLocalizedDescription } from './i18n/translator';
-import { ChevronLeft, ChevronRight, Terminal, RefreshCw, FolderOpen } from 'lucide-react';
+import { resolveNaturalLanguageIntent } from './utils/aiMatcher';
+import { ChevronLeft, ChevronRight, Terminal, RefreshCw, FolderOpen, Sparkles } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 30;
 
@@ -120,6 +121,11 @@ export const App: React.FC = () => {
     setPage(1);
   };
 
+  // AI Intent Matcher
+  const aiRecommendation = useMemo(() => {
+    return resolveNaturalLanguageIntent(filters.query);
+  }, [filters.query]);
+
   // Filter & Search Engine
   const filteredServers = useMemo(() => {
     const q = filters.query.trim().toLowerCase();
@@ -127,6 +133,11 @@ export const App: React.FC = () => {
     return servers.filter((server) => {
       // Query filter
       if (q) {
+        // Direct intent boost match
+        if (aiRecommendation && aiRecommendation.recommendedServerIds.includes(server.id)) {
+          return true;
+        }
+
         const matchesName = server.name.toLowerCase().includes(q);
         const matchesDesc = server.desc.toLowerCase().includes(q);
         const koreanDesc = getLocalizedDescription(server.name, server.desc, 'ko').toLowerCase();
@@ -136,7 +147,14 @@ export const App: React.FC = () => {
         const matchesCmd = server.cmd?.toLowerCase().includes(q);
         const matchesPkg = server.pkg?.toLowerCase().includes(q);
 
-        if (!matchesName && !matchesDesc && !matchesKoDesc && !matchesCat && !matchesCmd && !matchesPkg) {
+        // Keyword suggestion match from AI matcher
+        const matchesAiKeyword = aiRecommendation?.suggestedKeywords.some((k) =>
+          server.name.toLowerCase().includes(k.toLowerCase()) ||
+          server.desc.toLowerCase().includes(k.toLowerCase()) ||
+          koreanDesc.includes(k.toLowerCase())
+        );
+
+        if (!matchesName && !matchesDesc && !matchesKoDesc && !matchesCat && !matchesCmd && !matchesPkg && !matchesAiKeyword) {
           return false;
         }
       }
@@ -168,11 +186,27 @@ export const App: React.FC = () => {
 
       return true;
     });
-  }, [servers, filters, locale]);
+  }, [servers, filters, locale, aiRecommendation]);
 
   // Sorting
   const sortedServers = useMemo(() => {
     const list = [...filteredServers];
+
+    // If AI Recommendation exists, prioritize recommended servers to the top!
+    if (aiRecommendation && aiRecommendation.recommendedServerIds.length > 0) {
+      const topIds = new Set(aiRecommendation.recommendedServerIds);
+      return list.sort((a, b) => {
+        const isRecA = topIds.has(a.id) ? 1 : 0;
+        const isRecB = topIds.has(b.id) ? 1 : 0;
+        if (isRecB !== isRecA) return isRecB - isRecA;
+
+        if (a.off !== b.off) return a.off ? -1 : 1;
+        const scoreA = (a.dl || 0) + (a.stars || 0) * 10;
+        const scoreB = (b.dl || 0) + (b.stars || 0) * 10;
+        return scoreB - scoreA;
+      });
+    }
+
     switch (filters.sortBy) {
       case 'downloads':
         return list.sort((a, b) => (b.dl || 0) - (a.dl || 0));
@@ -187,7 +221,7 @@ export const App: React.FC = () => {
           return scoreB - scoreA;
         });
     }
-  }, [filteredServers, filters.sortBy]);
+  }, [filteredServers, filters.sortBy, aiRecommendation]);
 
   // Pagination slice
   const totalPages = Math.ceil(sortedServers.length / ITEMS_PER_PAGE) || 1;
@@ -239,6 +273,35 @@ export const App: React.FC = () => {
                 </span>
               </div>
             </div>
+
+            {/* AI Natural Language Intent Recommendation Banner */}
+            {aiRecommendation && (
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-brand-500/10 via-indigo-500/10 to-purple-500/10 border border-brand-500/25 space-y-2 shadow-sm animate-fadeIn">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="p-1.5 rounded-xl bg-brand-600 text-white shadow-sm shadow-brand-500/30">
+                      <Sparkles className="w-4 h-4" />
+                    </span>
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
+                      <span>{locale === 'ko' ? '🤖 AI 맞춤 도구 추천' : '🤖 AI Smart Recommendation'}:</span>
+                      <span className="text-brand-600 dark:text-brand-400">{aiRecommendation.intentTitle}</span>
+                    </h3>
+                  </div>
+
+                  {aiRecommendation.suggestedKeywords.length > 0 && (
+                    <button
+                      onClick={() => handleFilterChange({ query: aiRecommendation.suggestedKeywords.join(' ') })}
+                      className="text-[11px] font-medium text-brand-600 dark:text-brand-400 hover:underline shrink-0"
+                    >
+                      {locale === 'ko' ? '키워드로 필터링' : 'Filter by keywords'} ({aiRecommendation.suggestedKeywords.join(', ')})
+                    </button>
+                  )}
+                </div>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  {locale === 'ko' ? aiRecommendation.explanationKo : aiRecommendation.explanationEn}
+                </p>
+              </div>
+            )}
 
             {/* Filter Bar */}
             <FilterBar
