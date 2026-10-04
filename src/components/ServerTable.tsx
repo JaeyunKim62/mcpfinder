@@ -40,7 +40,7 @@ export const ServerTable: React.FC<ServerTableProps> = ({
         <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 text-slate-700 dark:text-slate-300">
           {servers.map((server) => {
             const categoryLabel = getCategoryLabel(server.cat, locale);
-            const displayDesc = getLocalizedDescription(server.name, server.desc, locale);
+            const displayDesc = getLocalizedDescription(server.name, server.desc, locale, server.cat, server.id);
 
             return (
               <tr

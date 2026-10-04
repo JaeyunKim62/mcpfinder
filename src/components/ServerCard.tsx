@@ -45,7 +45,7 @@ export const ServerCard: React.FC<ServerCardProps> = ({
   };
 
   const categoryLabel = getCategoryLabel(server.cat, locale);
-  const koreanDesc = getLocalizedDescription(server.name, server.desc, 'ko');
+  const koreanDesc = getLocalizedDescription(server.name, server.desc, 'ko', server.cat, server.id);
   const displayDesc = locale === 'ko' && !showOriginal ? koreanDesc : (server.desc || t.noDesc);
   const hasTranslationDiff = locale === 'ko' && server.desc && koreanDesc !== server.desc;
 

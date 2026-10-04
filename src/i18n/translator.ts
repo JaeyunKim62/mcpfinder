@@ -2,6 +2,8 @@
  * MCP Server Description Translator & Korean Knowledge Base
  */
 
+import featuredTranslations from './featured-translations.json';
+
 // Well-known popular MCP servers curated Korean descriptions
 export const KNOWN_DESCRIPTIONS_KO: Record<string, string> = {
   // WaveSpeed & Multimedia
@@ -41,6 +43,12 @@ export const KNOWN_DESCRIPTIONS_KO: Record<string, string> = {
   'sentry-mcp': 'Sentry 에러 트래킹 시스템에서 발생한 실시간 예외 및 스택 트레이스를 분석하는 모니터링 MCP 서버입니다.',
 };
 
+// Merge featured translations into a single fast lookup
+const FEATURED_MAP: Record<string, string> = {
+  ...featuredTranslations,
+  ...KNOWN_DESCRIPTIONS_KO,
+};
+
 // Known technical compound phrases
 const COMPOUND_PHRASES: Record<string, string> = {
   'image, video, audio and 3d models': '이미지, 비디오, 오디오 및 3D 모델',
@@ -65,6 +73,11 @@ const COMPOUND_PHRASES: Record<string, string> = {
   'filesystem': '파일 시스템',
   'decompiled source': '디컴파일 소스 코드',
   'vector database': '벡터 데이터베이스',
+  'video, image and ugc avatar ads': '동영상, 이미지 및 UGC 아바타 광고',
+  'script, voiceover and music': '스크립트, 음성 및 배경음악',
+  'read, search, draft, send, schedule and organize mail': '메일 읽기, 검색, 초안 작성, 발송, 예약 및 폴더 정리',
+  'cms, forms, auth and storage': 'CMS 콘텐츠 관리, 웹 폼, 사용자 인증 및 클라우드 스토리지',
+  'outbound, deals, pipeline and crm automation': '아웃바운드 영업, 딜 계약, 파이프라인 및 CRM 자동화',
 };
 
 // Common prefixes & sentence patterns to translate automatically
@@ -215,18 +228,27 @@ function translateFragment(frag: string): string {
 /**
  * Returns translated Korean description if locale is 'ko', or original text
  */
-export function getLocalizedDescription(name: string, description: string, locale: 'ko' | 'en'): string {
+export function getLocalizedDescription(
+  name: string,
+  description: string,
+  locale: 'ko' | 'en',
+  category?: string,
+  id?: string
+): string {
   if (locale === 'en' || !description) {
     return description;
   }
 
-  // 1. Direct match by package/repo name or known servers
-  const cleanKey = name.toLowerCase().trim();
-  if (KNOWN_DESCRIPTIONS_KO[cleanKey]) {
-    return KNOWN_DESCRIPTIONS_KO[cleanKey];
+  // 1. Direct match by id or name in FEATURED_MAP
+  if (id && FEATURED_MAP[id]) {
+    return FEATURED_MAP[id];
   }
-  for (const [k, ko] of Object.entries(KNOWN_DESCRIPTIONS_KO)) {
-    if (cleanKey.includes(k.toLowerCase()) || k.toLowerCase().includes(cleanKey)) {
+  const cleanKey = name.toLowerCase().trim();
+  if (FEATURED_MAP[cleanKey]) {
+    return FEATURED_MAP[cleanKey];
+  }
+  for (const [k, ko] of Object.entries(FEATURED_MAP)) {
+    if (cleanKey === k.toLowerCase()) {
       return ko;
     }
   }
@@ -240,7 +262,52 @@ export function getLocalizedDescription(name: string, description: string, local
     }
   }
 
-  // 3. Detail phrase enhancement if known phrases exist
+  // 3. Common structural decomposition: "Topic: Details"
+  const colonMatch = trimmed.match(/^([^:]{3,50}):\s*(.+)$/);
+  if (colonMatch) {
+    const topic = colonMatch[1].trim();
+    const details = translateDetails(colonMatch[2].trim());
+    return `${topic} 솔루션으로, ${details}을(를) 지원합니다.`;
+  }
+
+  // 4. Common structural decomposition: "Verb + Object"
+  const verbMatch = trimmed.match(/^(Run|Execute|Fix|Generate|Create|Manage|Automate|Monitor|Track|Search|Find|Inspect|Query|Connect|Deploy|Sync|Build|Publish)\s+(.+)$/i);
+  if (verbMatch) {
+    const verb = verbMatch[1].toLowerCase();
+    const rest = translateDetails(verbMatch[2].replace(/\.$/, ''));
+    const verbMap: Record<string, string> = {
+      run: '실행',
+      execute: '실행',
+      fix: '수정 및 해결',
+      generate: '생성',
+      create: '생성',
+      manage: '관리',
+      automate: '자동화',
+      monitor: '모니터링',
+      track: '추적',
+      search: '검색',
+      find: '탐색 및 조회',
+      inspect: '검사 및 분석',
+      query: '조회',
+      connect: '연결 및 연동',
+      deploy: '배포',
+      sync: '동기화',
+      build: '빌드 및 제작',
+      publish: '발행 및 배포',
+    };
+    return `${rest} 관련 ${verbMap[verb] || verb} 기능을 지원합니다.`;
+  }
+
+  // 5. Common structural decomposition: "X for Y"
+  const forMatch = trimmed.match(/^(.+?)\s+for\s+(.+?)(?:\s+with\s+(.+))?$/i);
+  if (forMatch) {
+    const subj = forMatch[1];
+    const target = forMatch[2];
+    const withClause = forMatch[3] ? ` (${translateDetails(forMatch[3])} 지원)` : '';
+    return `${target}을(를) 위한 ${subj} 연동 서버입니다${withClause}.`;
+  }
+
+  // 6. Detail phrase enhancement if known phrases exist
   let enhanced = trimmed;
   let matchedPhrase = false;
   for (const [en, ko] of Object.entries(COMPOUND_PHRASES)) {
@@ -251,9 +318,13 @@ export function getLocalizedDescription(name: string, description: string, local
     }
   }
 
-  // If phrases matched and text looks like a list or compound sentence, return the enhanced version
   if (matchedPhrase) {
     return enhanced;
+  }
+
+  // 7. Contextual Category Fallback: ensure no card is left as unexplained raw English
+  if (category) {
+    return `${category} 작업 도구로, ${trimmed}`;
   }
 
   return description;

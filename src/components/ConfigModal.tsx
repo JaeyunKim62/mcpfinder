@@ -44,7 +44,7 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose, local
   };
 
   const categoryLabel = getCategoryLabel(server.cat, locale);
-  const koreanDesc = getLocalizedDescription(server.name, server.desc, locale);
+  const koreanDesc = getLocalizedDescription(server.name, server.desc, locale, server.cat, server.id);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-fadeIn">
