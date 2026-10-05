@@ -329,3 +329,268 @@ export function getLocalizedDescription(
 
   return description;
 }
+
+export interface StructuredDescription {
+  summary: string;
+  bullets: string[];
+}
+
+export const CURATED_STRUCTURED_KO: Record<string, StructuredDescription> = {
+  'wavespeedai/mcp-server': {
+    summary: 'WaveSpeed AI 멀티미디어 모델 실행기',
+    bullets: [
+      '이미지 · 동영상 · 음성 · 3D 모델 실행',
+      '카탈로그 모델 검색 및 스키마 검사',
+      '로컬 파일 직접 업로드 지원',
+      '실행 전 실시간 비용 견적 확인',
+    ],
+  },
+  '@wavespeed/mcp': {
+    summary: 'WaveSpeed AI 멀티미디어 모델 실행기',
+    bullets: [
+      '이미지 · 동영상 · 음성 · 3D 모델 실행',
+      '카탈로그 모델 검색 및 스키마 검사',
+      '로컬 파일 직접 업로드 지원',
+      '실행 전 실시간 비용 견적 확인',
+    ],
+  },
+  'wavespeed': {
+    summary: 'WaveSpeed AI 멀티미디어 모델 실행기',
+    bullets: [
+      '이미지 · 동영상 · 음성 · 3D 모델 실행',
+      '카탈로그 모델 검색 및 스키마 검사',
+      '로컬 파일 직접 업로드 지원',
+      '실행 전 실시간 비용 견적 확인',
+    ],
+  },
+  '@modelcontextprotocol/server-filesystem': {
+    summary: '로컬 파일 시스템 보안 접근 및 파일 관리',
+    bullets: [
+      '파일 읽기, 쓰기 및 내용 수정',
+      '디렉토리 탐색 및 파일 검색',
+      '지정된 디렉토리 보안 격리',
+    ],
+  },
+  '@modelcontextprotocol/server-github': {
+    summary: 'GitHub 공식 리포지토리 및 코드 연동',
+    bullets: [
+      '저장소 탐색 및 소스 코드 검색',
+      '커밋 이력, 브랜치 및 diff 확인',
+      '이슈(Issue) 및 Pull Request(PR) 관리',
+    ],
+  },
+  '@modelcontextprotocol/server-gitlab': {
+    summary: 'GitLab 프로젝트 및 CI/CD 파이프라인 관리',
+    bullets: [
+      '프로젝트 및 리포지토리 파일 조회',
+      '이슈 및 머지 리퀘스트(MR) 제어',
+      'CI/CD 파이프라인 상태 모니터링',
+    ],
+  },
+  '@modelcontextprotocol/server-git': {
+    summary: '로컬 Git 저장소 버전 관리 및 히스토리',
+    bullets: [
+      '로컬 저장소 커밋 이력 및 로그 확인',
+      '변경 사항 diff 분석 및 스테이징',
+      '브랜치 생성 및 전환 작업',
+    ],
+  },
+  '@modelcontextprotocol/server-postgres': {
+    summary: 'PostgreSQL 데이터베이스 연동 및 쿼리',
+    bullets: [
+      'DB 스키마 및 테이블 구조 검사',
+      '읽기 전용 안전한 SQL 쿼리 실행',
+      '데이터베이스 메타데이터 인덱싱',
+    ],
+  },
+  '@modelcontextprotocol/server-sqlite': {
+    summary: 'SQLite 경량 데이터베이스 조회 및 조작',
+    bullets: [
+      '로컬 .sqlite / .db 파일 직접 연결',
+      '테이블 스키마 및 인덱스 조회',
+      'SQL 쿼리 실행 및 결과 추출',
+    ],
+  },
+  '@modelcontextprotocol/server-brave-search': {
+    summary: 'Brave Search API 기반 실시간 웹 검색',
+    bullets: [
+      '최신 실시간 웹 정보 및 뉴스 검색',
+      '지역 비즈니스 및 장소 정보 질의',
+      'AI 맞춤형 고품질 검색 결과 제공',
+    ],
+  },
+  '@modelcontextprotocol/server-fetch': {
+    summary: '웹페이지 Markdown 변환 및 스크래핑',
+    bullets: [
+      '웹페이지 HTML 자동 호출 및 파싱',
+      'AI 친화적인 깨끗한 Markdown 변환',
+      '웹 콘텐츠 텍스트 추출 및 정제',
+    ],
+  },
+  '@modelcontextprotocol/server-puppeteer': {
+    summary: 'Puppeteer 브라우저 제어 및 웹 자동화',
+    bullets: [
+      '헤드리스 브라우저 탐색 및 클릭',
+      '웹페이지 전체 스크린샷 캡처',
+      '동적 자바스크립트 사이트 자동화',
+    ],
+  },
+  '@modelcontextprotocol/server-slack': {
+    summary: 'Slack 공식 워크스페이스 연동',
+    bullets: [
+      '채널 목록 및 메시지 히스토리 조회',
+      '공개/비공개 채널 메시지 전송',
+      '스레드 댓글 및 사용자 조회',
+    ],
+  },
+  '@modelcontextprotocol/server-memory': {
+    summary: '지식 그래프 기반 영구 기억(Memory) 관리',
+    bullets: [
+      '대화 간 문맥 영구 보관 및 회상',
+      '엔티티-관계 지식 그래프 구축',
+      '사용자 선호도 및 프로젝트 문맥 추적',
+    ],
+  },
+  'yahoo-finance2': {
+    summary: 'Yahoo Finance 실시간 주가 및 시장 데이터',
+    bullets: [
+      '실시간 주가, 티커 및 지수 조회',
+      '기업 재무제표 및 실적 통계 분석',
+      '환율 및 글로벌 시장 시세 확인',
+    ],
+  },
+  'docker-mcp': {
+    summary: 'Docker 컨테이너 및 이미지 오케스트레이션',
+    bullets: [
+      '컨테이너 실행 상태 모니터링',
+      '컨테이너 시작, 중지 및 로그 확인',
+      'Docker 이미지 및 볼륨 관리',
+    ],
+  },
+  'kubernetes-mcp': {
+    summary: 'Kubernetes 클러스터 리소스 모니터링',
+    bullets: [
+      'Pod, Service, Deployment 상태 확인',
+      '클러스터 이벤트 및 로그 스트리밍',
+      '네임스페이스별 리소스 제어',
+    ],
+  },
+  'redis-mcp': {
+    summary: 'Redis 인메모리 캐시 및 데이터 관리',
+    bullets: [
+      '키-값 데이터 조회, 추가 및 삭제',
+      '캐시 TTL 만료 시간 확인',
+      'Redis 서버 상태 및 메모리 통계',
+    ],
+  },
+  'firecrawl-mcp': {
+    summary: '웹사이트 전체 AI 최적화 크롤러',
+    bullets: [
+      '깨끗한 마크다운(Markdown) 추출',
+      '동적 자바스크립트 페이지 렌더링',
+      '서브도메인 및 사이트맵 자동 탐색',
+    ],
+  },
+  'tavily-mcp': {
+    summary: 'AI 에이전트 특화 심층 웹 검색 엔진',
+    bullets: [
+      '신뢰도 높은 사실 정보 실시간 검색',
+      '본문 데이터 직접 추출 및 정제',
+      '검색 소스 URL 및 인용문 제공',
+    ],
+  },
+  'playwright-mcp': {
+    summary: 'Playwright 브라우저 자동화 및 테스트',
+    bullets: [
+      'Chromium/Firefox/WebKit 브라우저 제어',
+      '화면 스크린샷 및 PDF 캡처',
+      '웹 인터랙션 및 폼 자동 입력',
+    ],
+  },
+  'notion-mcp': {
+    summary: 'Notion 워크스페이스 문서 및 DB 연동',
+    bullets: [
+      '페이지 및 데이터베이스 검색/조회',
+      '새 페이지 작성 및 블록 추가',
+      '데이터베이스 속성 및 필터링',
+    ],
+  },
+};
+
+export function getStructuredDescription(
+  name: string,
+  description: string,
+  locale: 'ko' | 'en',
+  category?: string,
+  id?: string
+): StructuredDescription {
+  const cleanKey = name.toLowerCase().trim();
+  const cleanId = (id || '').toLowerCase().trim();
+
+  // 1. Direct curated match in Korean
+  if (locale === 'ko') {
+    if (cleanId && CURATED_STRUCTURED_KO[cleanId]) {
+      return CURATED_STRUCTURED_KO[cleanId];
+    }
+    if (CURATED_STRUCTURED_KO[cleanKey]) {
+      return CURATED_STRUCTURED_KO[cleanKey];
+    }
+    for (const [k, v] of Object.entries(CURATED_STRUCTURED_KO)) {
+      if (cleanKey.includes(k) || (cleanId && cleanId.includes(k))) {
+        return v;
+      }
+    }
+  }
+
+  // 2. Localized text fallback
+  const text = getLocalizedDescription(name, description, locale, category, id);
+  if (!text) {
+    return {
+      summary: category ? `${category} 작업 도구` : name,
+      bullets: [],
+    };
+  }
+
+  // Check colon split (e.g. "Ad studio: generate video, image...")
+  const colonIdx = text.indexOf(':');
+  if (colonIdx > 4 && colonIdx < 65) {
+    const summary = text.slice(0, colonIdx).trim().replace(/^솔루션으로,?\s*/, '').trim();
+    const rest = text.slice(colonIdx + 1).trim();
+    const items = rest
+      .split(/(?:,|\band\b|및|·|;)/i)
+      .map((s) => s.trim().replace(/^\s*[-•*✔]\s*/, '').replace(/\.$/, ''))
+      .filter((s) => s.length > 1 && !/^(with|for|and|in|관련|솔루션으로)$/i.test(s));
+
+    if (items.length > 0) {
+      return {
+        summary,
+        bullets: items.slice(0, 3),
+      };
+    }
+  }
+
+  // Check sentence split
+  const sentences = text.split(/(?<=[.!?])\s+/).filter(Boolean);
+  if (sentences.length > 1) {
+    const summary = sentences[0].replace(/\.$/, '').trim();
+    const details = sentences.slice(1).join(' ');
+    const items = details
+      .split(/(?:,|\band\b|및|·|;)/i)
+      .map((s) => s.trim().replace(/^\s*[-•*✔]\s*/, '').replace(/\.$/, ''))
+      .filter((s) => s.length > 1 && !/^(with|for|and|in|관련|솔루션으로)$/i.test(s));
+
+    if (items.length > 0) {
+      return {
+        summary,
+        bullets: items.slice(0, 3),
+      };
+    }
+  }
+
+  // Fallback: single clean summary
+  return {
+    summary: text,
+    bullets: [],
+  };
+}
+

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Sparkles, Terminal, Copy, Check, ExternalLink, Cloud, Laptop, Globe2, Calendar } from 'lucide-react';
 import { ServerItem } from '../types';
 import { Locale, translations, getCategoryLabel } from '../i18n';
-import { getLocalizedDescription } from '../i18n/translator';
+import { getLocalizedDescription, getStructuredDescription } from '../i18n/translator';
 
 interface ServerCardProps {
   server: ServerItem;
@@ -45,9 +45,8 @@ export const ServerCard: React.FC<ServerCardProps> = ({
   };
 
   const categoryLabel = getCategoryLabel(server.cat, locale);
-  const koreanDesc = getLocalizedDescription(server.name, server.desc, 'ko', server.cat, server.id);
-  const displayDesc = locale === 'ko' && !showOriginal ? koreanDesc : (server.desc || t.noDesc);
-  const hasTranslationDiff = locale === 'ko' && server.desc && koreanDesc !== server.desc;
+  const structured = getStructuredDescription(server.name, server.desc, locale, server.cat, server.id);
+  const hasTranslationDiff = locale === 'ko' && server.desc && structured.summary !== server.desc;
 
   return (
     <div
@@ -109,18 +108,41 @@ export const ServerCard: React.FC<ServerCardProps> = ({
           )}
         </div>
 
-        {/* Korean / Localized Description */}
-        <div className="mb-3">
-          <p
-            className={`text-xs text-slate-600 dark:text-slate-300 leading-relaxed transition-all ${
-              isExpanded ? '' : 'line-clamp-3'
-            }`}
-          >
-            {displayDesc}
-          </p>
+        {/* Structured Description: 📌 Summary + ✔ Feature Bullets */}
+        <div className="mb-3 space-y-2">
+          {showOriginal ? (
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-mono text-[11px] bg-slate-50 dark:bg-slate-950/50 p-2.5 rounded-xl border border-slate-200/60 dark:border-slate-800/60">
+              {server.desc || t.noDesc}
+            </p>
+          ) : (
+            <>
+              {/* 📌 한 줄 핵심 정의 */}
+              <div className="flex items-start gap-1.5 text-xs font-semibold text-slate-800 dark:text-slate-200">
+                <span className="text-brand-500 shrink-0 mt-0.5 text-xs">📌</span>
+                <span className="leading-snug line-clamp-2">{structured.summary}</span>
+              </div>
 
-          <div className="flex items-center gap-3 mt-1.5 flex-wrap">
-            {displayDesc.length > 90 && (
+              {/* ✔ 핵심 기능 불렛 목록 */}
+              {structured.bullets.length > 0 && (
+                <ul className="space-y-1 pl-1 pt-0.5">
+                  {(isExpanded ? structured.bullets : structured.bullets.slice(0, 3)).map((feat, idx) => (
+                    <li
+                      key={idx}
+                      className="flex items-start gap-1.5 text-[11px] text-slate-600 dark:text-slate-300 leading-tight"
+                    >
+                      <span className="text-emerald-500 dark:text-emerald-400 font-bold shrink-0 text-[10px] mt-0.5">
+                        ✔
+                      </span>
+                      <span className={isExpanded ? '' : 'line-clamp-1'}>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </>
+          )}
+
+          <div className="flex items-center gap-3 pt-1 flex-wrap">
+            {structured.bullets.length > 3 && !showOriginal && (
               <button
                 type="button"
                 onClick={(e) => {
@@ -129,7 +151,7 @@ export const ServerCard: React.FC<ServerCardProps> = ({
                 }}
                 className="inline-flex items-center text-[10px] font-medium text-brand-600 dark:text-brand-400 hover:underline"
               >
-                {isExpanded ? (locale === 'ko' ? '간략히 접기 ↑' : 'Show less ↑') : (locale === 'ko' ? '전체 설명 더보기 ↓' : 'Read more ↓')}
+                {isExpanded ? (locale === 'ko' ? '기능 접기 ↑' : 'Show less ↑') : (locale === 'ko' ? `기능 ${structured.bullets.length - 3}개 더보기 ↓` : 'More features ↓')}
               </button>
             )}
 
@@ -144,7 +166,7 @@ export const ServerCard: React.FC<ServerCardProps> = ({
                 className="inline-flex items-center gap-1 text-[10px] text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
               >
                 <Globe2 className="w-2.5 h-2.5" />
-                <span>{showOriginal ? '한글 번역 보기' : '영문 원문 보기'}</span>
+                <span>{showOriginal ? (locale === 'ko' ? '구조화 요약 보기' : 'Structured View') : (locale === 'ko' ? '영문 원문 보기' : 'Original Text')}</span>
               </button>
             )}
           </div>

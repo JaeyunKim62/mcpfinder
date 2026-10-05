@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Sparkles, Terminal, Copy, Check, ExternalLink, Cloud, Laptop } from 'lucide-react';
 import { ServerItem } from '../types';
 import { Locale, translations, getCategoryLabel } from '../i18n';
-import { getLocalizedDescription } from '../i18n/translator';
+import { getLocalizedDescription, getStructuredDescription } from '../i18n/translator';
 
 interface ServerTableProps {
   servers: ServerItem[];
@@ -40,7 +40,8 @@ export const ServerTable: React.FC<ServerTableProps> = ({
         <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 text-slate-700 dark:text-slate-300">
           {servers.map((server) => {
             const categoryLabel = getCategoryLabel(server.cat, locale);
-            const displayDesc = getLocalizedDescription(server.name, server.desc, locale, server.cat, server.id);
+            const structured = getStructuredDescription(server.name, server.desc, locale, server.cat, server.id);
+            const tooltip = `${structured.summary}${structured.bullets.length ? '\n• ' + structured.bullets.join('\n• ') : ''}`;
 
             return (
               <tr
@@ -70,8 +71,12 @@ export const ServerTable: React.FC<ServerTableProps> = ({
                       </a>
                     )}
                   </div>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
-                    {displayDesc || t.noDesc}
+                  <p className="text-[11px] text-slate-600 dark:text-slate-300 truncate mt-0.5" title={tooltip}>
+                    <span className="text-brand-500 font-bold mr-1">📌</span>
+                    <span>{structured.summary}</span>
+                    {structured.bullets.length > 0 && (
+                      <span className="text-slate-400 ml-1">· {structured.bullets[0]}</span>
+                    )}
                   </p>
                 </td>
 

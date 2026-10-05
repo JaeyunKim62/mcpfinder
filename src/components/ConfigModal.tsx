@@ -3,7 +3,7 @@ import { X, Copy, Check, Download, Terminal, ExternalLink, Sparkles, KeyRound, C
 import { ServerItem } from '../types';
 import { generateClientConfig } from '../utils/configGenerator';
 import { Locale, translations, getCategoryLabel } from '../i18n';
-import { getLocalizedDescription } from '../i18n/translator';
+import { getLocalizedDescription, getStructuredDescription } from '../i18n/translator';
 
 interface ConfigModalProps {
   server: ServerItem | null;
@@ -44,7 +44,7 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose, local
   };
 
   const categoryLabel = getCategoryLabel(server.cat, locale);
-  const koreanDesc = getLocalizedDescription(server.name, server.desc, locale, server.cat, server.id);
+  const structured = getStructuredDescription(server.name, server.desc, locale, server.cat, server.id);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-fadeIn">
@@ -69,9 +69,24 @@ export const ConfigModal: React.FC<ConfigModalProps> = ({ server, onClose, local
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mt-1 max-w-xl">
-                {koreanDesc || server.desc}
-              </p>
+              <div className="mt-1 space-y-1.5 max-w-xl">
+                <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-snug">
+                  <span className="text-brand-500 font-bold mr-1">📌</span>
+                  {structured.summary}
+                </p>
+                {structured.bullets.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 pt-0.5">
+                    {structured.bullets.map((b, i) => (
+                      <span
+                        key={i}
+                        className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/40"
+                      >
+                        <Check className="w-2.5 h-2.5 text-emerald-500" /> {b}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
