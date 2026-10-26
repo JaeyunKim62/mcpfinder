@@ -49,7 +49,7 @@ async function queryRepos(keys: string[], token: string): Promise<Record<string,
   for (let attempt = 1; ; attempt++) {
     const res = await fetch("https://api.github.com/graphql", {
       method: "POST",
-      headers: { Authorization: `Bearer ${token}`, "User-Agent": "mcp-list-sync", "Content-Type": "application/json" },
+      headers: { Authorization: `Bearer ${token}`, "User-Agent": "mcpfinder-sync", "Content-Type": "application/json" },
       body: JSON.stringify({ query }),
     });
     // NOT_FOUND errors for individual repos still return 200 with partial data

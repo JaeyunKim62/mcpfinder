@@ -60,7 +60,7 @@ const summarize = (s: ServerItem) => ({
 const text = (data: unknown) => ({ content: [{ type: 'text' as const, text: JSON.stringify(data, null, 2) }] });
 
 export function createServer(): McpServer {
-  const server = new McpServer({ name: 'mcp-index', version: '0.1.0' });
+  const server = new McpServer({ name: 'mcpfinder', version: '0.1.0' });
 
   server.registerTool(
     'search_mcp_servers',

@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { createServer } from '../mcp/server.js';
 
-// Remote entry: claude mcp add --transport http mcp-index https://<site>/api/mcp
+// Remote entry: claude mcp add --transport http mcpfinder https://<site>/api/mcp
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     // Stateless server: no SSE stream or session to resume

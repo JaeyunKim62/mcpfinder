@@ -22,7 +22,7 @@ export const categoryTranslations: Record<string, { ko: string; en: string }> = 
 
 export const translations = {
   en: {
-    title: 'MCP Index',
+    title: 'MCPfinder',
     subtitle: 'The Universal Model Context Protocol Directory',
     searchPlaceholder: 'Search 34,000+ MCP servers (e.g. postgres, git, brave, memory)...',
     stackBuilder: 'Stack Builder',
@@ -116,14 +116,14 @@ export const translations = {
     next: 'Next',
 
     // Footer
-    footerSyncText: 'MCP Index © 2026. Automatically synced every 6 hours from Official MCP Registry, punkpeye/awesome-mcp-servers, and npm.',
+    footerSyncText: 'MCPfinder © 2026. Automatically synced daily from Official MCP Registry, punkpeye/awesome-mcp-servers, and npm.',
     protocolDocs: 'Protocol Docs',
     referenceServers: 'Reference Servers',
     registryPortal: 'Registry Portal',
     backgroundLoading: 'Showing top featured servers. Loading full index of 34,000+ servers in the background for instant search...',
   },
   ko: {
-    title: 'MCP 인덱스',
+    title: 'MCPfinder',
     subtitle: '모든 AI 에이전트를 위한 MCP 통합 디렉토리',
     searchPlaceholder: '34,000+ 개 MCP 서버 검색 (예: postgres, git, brave, memory)...',
     stackBuilder: '스택 빌더',
@@ -217,7 +217,7 @@ export const translations = {
     next: '다음',
 
     // Footer
-    footerSyncText: 'MCP Index © 2026. 공식 MCP 레지스트리, punkpeye/awesome-mcp-servers, npm에서 6시간마다 자동으로 동기화됩니다.',
+    footerSyncText: 'MCPfinder © 2026. 공식 MCP 레지스트리, punkpeye/awesome-mcp-servers, npm에서 매일 자동으로 동기화됩니다.',
     protocolDocs: '프로토콜 공식 문서',
     referenceServers: '레퍼런스 서버',
     registryPortal: '레지스트리 포털',

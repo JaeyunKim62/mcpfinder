@@ -1,4 +1,4 @@
-# 🌐 MCP Index — The Universal Model Context Protocol Directory
+# 🌐 MCPfinder — The Universal Model Context Protocol Directory
 
 An open-source, continuously updated directory and configuration hub indexing over **34,000+ Model Context Protocol (MCP) servers** for Claude Desktop, Cursor, Windsurf, Zed, and AI coding agents.
 
@@ -71,10 +71,10 @@ The catalog itself is an MCP server, so your AI assistant can search 34k+ server
 
 ```bash
 # Remote (after deploying to Vercel)
-claude mcp add --transport http mcp-index https://<your-site>/api/mcp
+claude mcp add --transport http mcpfinder https://<your-site>/api/mcp
 
 # Local (from a clone, after `npm install && npm run build:data`)
-claude mcp add mcp-index -- npx tsx /path/to/mcp-list/mcp/stdio.ts
+claude mcp add mcpfinder -- npx tsx /path/to/mcpfinder/mcp/stdio.ts
 ```
 
 ---
@@ -92,7 +92,7 @@ claude mcp add mcp-index -- npx tsx /path/to/mcp-list/mcp/stdio.ts
 ## 📂 Project Architecture
 
 ```
-mcp-list/
+mcpfinder/
 ├── .github/workflows/
 │   └── update-mcp-data.yml    # Scheduled cron (daily) for auto-updates
 │   └── ci.yml                 # Typecheck, test, build on PRs

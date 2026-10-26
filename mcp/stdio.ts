@@ -1,4 +1,4 @@
-// Local entry: claude mcp add mcp-index -- npx tsx <repo>/mcp/stdio.ts
+// Local entry: claude mcp add mcpfinder -- npx tsx <repo>/mcp/stdio.ts
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { createServer } from './server.js';
 
