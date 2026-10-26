@@ -1,6 +1,10 @@
-# 🌐 MCPfinder — The Universal Model Context Protocol Directory
+# 🌐 MCPfinder — 모든 AI 에이전트를 위한 MCP 통합 디렉토리
 
-An open-source, continuously updated directory and configuration hub indexing over **34,000+ Model Context Protocol (MCP) servers** for Claude Desktop, Cursor, Windsurf, Zed, and AI coding agents.
+**한국어** | [English](README.en.md)
+
+**👉 [mcpfinder-ashen.vercel.app](https://mcpfinder-ashen.vercel.app/)**
+
+**34,000개 이상의 MCP(Model Context Protocol) 서버**를 검색하고, Claude Desktop · Cursor · Windsurf · Zed · Claude Code 설정을 바로 만들어 주는 오픈소스 디렉토리입니다. 매일 자동으로 업데이트됩니다.
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Servers: 34,000+](https://img.shields.io/badge/Servers-34k%2B-emerald.svg)
@@ -8,138 +12,102 @@ An open-source, continuously updated directory and configuration hub indexing ov
 
 ---
 
-## ✨ Key Features
+## ✨ 주요 기능
 
-- **⚡ 34,000+ Servers Indexed**: Aggregates from the Official MCP Registry, `punkpeye/awesome-mcp-servers`, and npm.
-- **🔄 Continuous Auto-Sync Engine**: GitHub Actions scheduled cron runs daily, querying incremental updates and auto-committing fresh data.
-- **🛠️ Multi-Client Config Generator**:
-  - One-click configuration for **Claude Desktop** (`claude_desktop_config.json`), **Cursor IDE** (`.cursor/mcp.json`), **Windsurf** (`mcp_config.json`), **Zed Editor**, and **Claude Code CLI** (`claude mcp add`).
-  - **Live Environment Variable Form**: Type in your API keys or database URLs and watch your JSON configuration update in real-time.
-- **📦 Custom Stack Builder**: Select multiple servers (e.g., PostgreSQL + GitHub + Brave Search) and generate a single unified configuration file.
-- **🔍 Instant Search & Faceted Filtering**:
-  - Filter by 50+ categories (Databases, DevTools, Search, Coding Agents, Finance, etc.).
-  - Filter by runtime (TypeScript, Python, Go, Rust), scope (Local stdio vs Cloud Remote), or verified status.
-  - Card Grid View & Compact Table View.
-  - Global `⌘K` keyboard shortcut.
-
----
-
-## 🚀 Quick Start
-
-### 1. Install Dependencies
-```bash
-npm install
-```
-
-### 2. Run Data Pipeline (Optional, dataset already included)
-```bash
-# Incremental update (fetches new & modified servers in ~30s)
-npm run sync
-
-# Re-build optimized web catalog datasets (also runs automatically before `dev` and `build`)
-npm run build:data
-```
-
-### 3. Start Development Server
-```bash
-npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### 4. Check
-```bash
-npm run typecheck && npm test
-```
-
-### 5. Build for Production
-```bash
-npm run build
-```
-Generates a static web bundle in `dist/` ready to deploy to Cloudflare Pages, Vercel, or GitHub Pages.
+- **⚡ 34,000개 이상의 서버**: 공식 MCP 레지스트리, `punkpeye/awesome-mcp-servers`, npm을 모아서 중복을 정리합니다.
+- **🔄 매일 자동 동기화**: GitHub Actions가 매일 새 서버와 변경 사항을 가져와 커밋하고, Vercel이 자동으로 다시 배포합니다.
+- **🛠️ 클라이언트별 설정 생성**:
+  - **Claude Desktop**, **Cursor**, **Windsurf**, **Zed**, **Claude Code CLI**(`claude mcp add`)용 설정을 클릭 한 번으로 만듭니다.
+  - API 키나 DB 주소를 입력하면 설정 JSON에 바로 반영됩니다.
+- **🔍 검색과 필터**:
+  - 50개 이상의 카테고리(데이터베이스, 개발 도구, 검색, 코딩 에이전트, 금융 등)
+  - 언어(TypeScript, Python, Go, Rust), 실행 방식(로컬 stdio / 클라우드 원격), 공식 여부, 최근 업데이트로 필터
+  - 카드 보기 / 표 보기, `⌘K`(`Ctrl+K`) 단축키
+- **🤖 MCP 서버로도 사용 가능**: Claude가 대화 중에 직접 MCP를 찾아 추천하고 설치 설정까지 만들어 줍니다. (아래 참고)
 
 ---
 
-## 🤖 Use as an MCP Server
+## 🤖 MCP 서버로 사용하기
 
-The catalog itself is an MCP server, so your AI assistant can search 34k+ servers and generate install configs mid-conversation (e.g. *"find me MCP servers for this project"*).
+이 디렉토리 자체가 MCP 서버입니다. 연결해 두면 *"이 프로젝트에 필요한 MCP 찾아줘"* 처럼 물어볼 수 있습니다.
 
-| Tool | What it does |
+```bash
+claude mcp add --transport http mcpfinder https://mcpfinder-ashen.vercel.app/api/mcp
+```
+
+| 도구 | 하는 일 |
 |---|---|
-| `search_mcp_servers` | Keyword search with category / local-vs-cloud / official filters |
-| `get_install_config` | Ready-to-paste config for Claude Code, Claude Desktop, Cursor, Windsurf, Zed |
-| `list_categories` | Categories with counts |
+| `search_mcp_servers` | 키워드 검색 (카테고리 / 로컬·클라우드 / 공식 여부 필터) |
+| `get_install_config` | Claude Code, Claude Desktop, Cursor, Windsurf, Zed용 설정 생성 |
+| `list_categories` | 카테고리와 서버 수 |
 
+로컬에서 실행하려면 (클론 후 `npm install && npm run build:data`):
 ```bash
-# Remote (after deploying to Vercel)
-claude mcp add --transport http mcpfinder https://<your-site>/api/mcp
-
-# Local (from a clone, after `npm install && npm run build:data`)
 claude mcp add mcpfinder -- npx tsx /path/to/mcpfinder/mcp/stdio.ts
 ```
 
 ---
 
-## ☁️ Deploy to Vercel
+## 🚀 직접 실행하기
 
-1. Import this GitHub repository at [vercel.com/new](https://vercel.com/new).
-2. Framework preset **Vite** is auto-detected (Build: `npm run build`, Output: `dist`). No env vars needed.
-3. Deploy. Every push to `main` — including the daily data sync commits — triggers a fresh deploy.
+```bash
+npm install
+npm run dev          # http://localhost:3000 (데이터 빌드가 먼저 자동 실행됨)
+```
 
-`dist/` and `public/data/` are build output and are not committed; they are regenerated from `data/servers.json`.
+| 명령 | 설명 |
+|---|---|
+| `npm run sync` | 데이터 소스에서 새 서버 가져오기 (증분, 약 30초) |
+| `GITHUB_TOKEN=... npm run sync:github` | GitHub 스타·포크·아카이브 정보 채우기 |
+| `npm run build:data` | 웹용 카탈로그 데이터 생성 |
+| `npm run typecheck && npm test` | 타입 검사와 테스트 |
+| `npm run build` | 배포용 빌드 (`dist/`) |
 
 ---
 
-## 📂 Project Architecture
+## ☁️ Vercel 배포
+
+1. [vercel.com/new](https://vercel.com/new)에서 이 저장소를 Import합니다.
+2. **Vite**가 자동 감지됩니다 (Build: `npm run build`, Output: `dist`). 환경변수는 필요 없습니다.
+3. Deploy. 이후 `main`에 push될 때마다(매일 자동 데이터 동기화 포함) 다시 배포됩니다.
+
+자동 동기화가 결과를 커밋하려면 저장소 Settings → Actions → Workflow permissions를 **Read and write**로 설정해야 합니다.
+`dist/`와 `public/data/`는 빌드 결과물이라 커밋하지 않고 `data/servers.json`에서 다시 만들어집니다.
+
+---
+
+## 📂 프로젝트 구조
 
 ```
 mcpfinder/
 ├── .github/workflows/
-│   └── update-mcp-data.yml    # Scheduled cron (daily) for auto-updates
-│   └── ci.yml                 # Typecheck, test, build on PRs
+│   ├── update-mcp-data.yml    # 매일 데이터 자동 동기화
+│   └── ci.yml                 # PR마다 타입 검사·테스트·빌드
 ├── data/
-│   ├── servers.json           # Canonical dataset (34,000+ servers)
-│   ├── sync-state.json        # Incremental sync timestamps & history
-│   └── raw/                   # Source cache (awesome-list, registry, npm)
-├── public/
-│   └── data/                  # Generated by build:data (not committed)
-│       ├── stats.json         # Real-time category & language counts
-│       ├── featured.json      # Top featured servers for instant first-paint
-│       └── catalog.json       # Full searchable catalog index
+│   ├── servers.json           # 원본 데이터셋 (34,000+ 서버)
+│   ├── sync-state.json        # 증분 동기화 시점과 기록
+│   └── raw/                   # 소스별 캐시 (커밋 안 함)
 ├── api/
-│   └── mcp.ts                 # Vercel function: remote MCP endpoint (/api/mcp)
+│   └── mcp.ts                 # Vercel 함수: 원격 MCP 엔드포인트 (/api/mcp)
 ├── mcp/
-│   ├── server.ts              # MCP tools: search, install config, categories
-│   └── stdio.ts               # Local stdio entry
+│   ├── server.ts              # MCP 도구: 검색, 설치 설정, 카테고리
+│   └── stdio.ts               # 로컬 stdio 실행
 ├── scripts/
-│   ├── types.ts               # Shared TypeScript schemas
-│   ├── utils.ts               # Resilient fetch, retry, and batch utils
-│   ├── state.ts               # Sync state manager
-│   ├── sync.ts                # Main orchestrator (npm run sync)
-│   ├── merge.ts               # Deduplication & smart categorization
-│   ├── build-catalog.ts       # Web data optimizer
-│   └── sources/
-│       ├── registry.ts        # Official MCP Registry API client
-│       ├── awesome-list.ts    # Community list markdown parser
-│       ├── npm-registry.ts    # npm registry search client
-│       └── github.ts          # GitHub API stars & license enricher
+│   ├── sync.ts                # 동기화 전체 흐름 (npm run sync)
+│   ├── merge.ts               # 중복 제거와 카테고리 분류
+│   ├── build-catalog.ts       # 웹용 데이터 생성 → public/data/
+│   └── sources/               # 레지스트리, awesome-list, npm, GitHub 수집기
 └── src/
-    ├── components/
-    │   ├── Header.tsx         # Search bar, stats ticker, theme toggle
-    │   ├── FilterBar.tsx      # Category pills, client & scope filters
-    │   ├── ServerCard.tsx     # Interactive cards with 1-click copy
-    │   ├── ServerTable.tsx    # Dense tabular view
-    │   ├── CategorySidebar.tsx # Category navigation
-    │   └── ConfigModal.tsx    # Multi-client interactive config generator
-    ├── i18n/                  # English / Korean translations (featured: `npm run build:i18n`)
+    ├── components/            # 헤더, 필터, 카드, 표, 설정 생성 모달
+    ├── i18n/                  # 한국어 / 영어 번역 (주요 서버 설명: npm run build:i18n)
     ├── utils/
-    │   ├── aiMatcher.ts       # Natural-language intent → server recommendations
-    │   └── configGenerator.ts # Generates Claude, Cursor, Windsurf configs
-    ├── App.tsx                # Main application controller
-    └── main.tsx               # React entry point
+    │   ├── aiMatcher.ts       # 자연어 질문 → 서버 추천
+    │   └── configGenerator.ts # 클라이언트별 설정 생성
+    └── App.tsx
 ```
 
 ---
 
-## 📜 License
+## 📜 라이선스
 
 [MIT](LICENSE)
