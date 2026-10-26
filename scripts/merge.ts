@@ -347,6 +347,31 @@ export async function mergeAllSources(): Promise<MCPServer[]> {
     log("merge", "⚠ npm.json not found, skipping");
   }
 
+  // ===== Carry over GitHub enrichment from the previous run (raw sources don't have it) =====
+  const previous = await readJson<MCPServer[]>(resolve(DATA_DIR, "servers.json"));
+  if (previous) {
+    const prevByRepo = new Map<string, MCPServer>();
+    for (const p of previous) {
+      const key = p.githubUrl && githubKey(p.githubUrl);
+      if (key && p.metrics.githubStars !== null) prevByRepo.set(key, p);
+    }
+    let carried = 0;
+    for (const s of serverMap.values()) {
+      const key = s.githubUrl && githubKey(s.githubUrl);
+      const p = key ? prevByRepo.get(key) : undefined;
+      if (!p) continue;
+      s.metrics.githubStars = p.metrics.githubStars;
+      s.metrics.githubForks = p.metrics.githubForks;
+      s.metrics.createdAt = p.metrics.createdAt;
+      s.metrics.openIssues = p.metrics.openIssues;
+      s.metrics.isArchived = p.metrics.isArchived;
+      s.license = s.license ?? p.license;
+      if (!s.sources.includes("github")) s.sources.push("github");
+      carried++;
+    }
+    log("merge", `  GitHub metrics carried over: ${carried}`);
+  }
+
   // ===== Final: Sort by stars descending, then name =====
   const allServers = Array.from(serverMap.values()).sort((a, b) => {
     const starsA = a.metrics.githubStars ?? 0;

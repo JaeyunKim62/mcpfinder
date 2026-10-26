@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import { resolve, dirname } from "node:path";
 import type { MCPServer } from "../types.js";
 import { githubKey } from "../types.js";
-import { fetchJson, writeJson, readJson, log, batchExecute, sleep } from "../utils.js";
+import { writeJson, readJson, log, sleep } from "../utils.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, "../..");
@@ -23,6 +23,45 @@ interface GitHubRepoResponse {
   license: { spdx_id: string } | null;
 }
 
+interface GraphQLRepo {
+  stargazerCount: number;
+  forkCount: number;
+  pushedAt: string;
+  createdAt: string;
+  isArchived: boolean;
+  issues: { totalCount: number };
+  licenseInfo: { spdxId: string } | null;
+}
+
+// ~250 requests for 25k repos, well inside even the Actions GITHUB_TOKEN limit (1,000/hour)
+const BATCH_SIZE = 100;
+
+/** Fetch up to BATCH_SIZE repos in one GraphQL request; missing repos come back null */
+async function queryRepos(keys: string[], token: string): Promise<Record<string, GraphQLRepo | null>> {
+  const fields = "stargazerCount forkCount pushedAt createdAt isArchived issues(states: OPEN) { totalCount } licenseInfo { spdxId }";
+  const query = `{ ${keys
+    .map((k, i) => {
+      const [owner, name] = k.split("/");
+      return `r${i}: repository(owner: ${JSON.stringify(owner)}, name: ${JSON.stringify(name)}) { ${fields} }`;
+    })
+    .join(" ")} }`;
+
+  for (let attempt = 1; ; attempt++) {
+    const res = await fetch("https://api.github.com/graphql", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "User-Agent": "mcp-list-sync", "Content-Type": "application/json" },
+      body: JSON.stringify({ query }),
+    });
+    // NOT_FOUND errors for individual repos still return 200 with partial data
+    if (res.ok) {
+      const body = (await res.json()) as { data?: Record<string, GraphQLRepo | null> };
+      if (body.data) return body.data;
+    }
+    if (attempt === 3) throw new Error(`HTTP ${res.status}`);
+    await sleep(2000 * attempt);
+  }
+}
+
 /**
  * Enrich MCPServer entries with GitHub metadata
  */
@@ -30,86 +69,53 @@ export async function enrichWithGitHub(
   servers: MCPServer[]
 ): Promise<MCPServer[]> {
   const token = process.env.GITHUB_TOKEN;
-  const headers: Record<string, string> = {
-    Accept: "application/vnd.github.v3+json",
-    "User-Agent": "mcp-list-sync",
-  };
-  if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
-    log("github", "Using authenticated requests (GITHUB_TOKEN set)");
-  } else {
-    log("github", "⚠ No GITHUB_TOKEN - rate limited to 60 req/hour");
+  if (!token) {
+    // GraphQL API rejects unauthenticated requests
+    log("github", "⚠ No GITHUB_TOKEN - skipping enrichment");
+    return servers;
   }
 
   // Deduplicate: group servers by GitHub owner/repo
-  const repoMap = new Map<string, string[]>(); // key -> server ids
-  for (const server of servers) {
-    if (!server.githubUrl) continue;
-    const key = githubKey(server.githubUrl);
-    if (!key) continue;
-    const ids = repoMap.get(key) ?? [];
-    ids.push(server.id);
-    repoMap.set(key, ids);
-  }
+  const uniqueRepos = [
+    ...new Set(servers.map((s) => s.githubUrl && githubKey(s.githubUrl)).filter((k): k is string => !!k)),
+  ];
+  log("github", `Enriching ${uniqueRepos.length} unique repos via GraphQL (${BATCH_SIZE} per request)...`);
 
-  const uniqueRepos = Array.from(repoMap.keys());
-  log("github", `Enriching ${uniqueRepos.length} unique repos...`);
-
-  // Fetch in batches
   const enrichData = new Map<string, GitHubRepoResponse>();
-  let successCount = 0;
-  let errorCount = 0;
-  let rateLimitHit = false;
+  let failedBatches = 0;
 
-  const batchSize = 5;
-  const delayMs = token ? 100 : 1200; // slower without auth
-
-  for (let i = 0; i < uniqueRepos.length; i += batchSize) {
-    if (rateLimitHit) break;
-
-    const batch = uniqueRepos.slice(i, i + batchSize);
-
-    const results = await Promise.allSettled(
-      batch.map(async (key) => {
-        const url = `https://api.github.com/repos/${key}`;
-        try {
-          const data = await fetchJson<GitHubRepoResponse>(url, {
-            retries: 2,
-            delayMs: 500,
-            headers,
-          });
-          return { key, data };
-        } catch (err: any) {
-          if (err.message?.includes("403") || err.message?.includes("429")) {
-            rateLimitHit = true;
-            log("github", `⚠ Rate limit hit at ${i + batch.indexOf(key)} repos`);
-          }
-          throw err;
-        }
-      })
-    );
-
-    for (const result of results) {
-      if (result.status === "fulfilled") {
-        enrichData.set(result.value.key, result.value.data);
-        successCount++;
-      } else {
-        errorCount++;
-      }
+  for (let i = 0; i < uniqueRepos.length; i += BATCH_SIZE) {
+    const batch = uniqueRepos.slice(i, i + BATCH_SIZE);
+    try {
+      const data = await queryRepos(batch, token);
+      batch.forEach((key, j) => {
+        const r = data[`r${j}`];
+        if (!r) return; // deleted, renamed away or private
+        enrichData.set(key, {
+          stargazers_count: r.stargazerCount,
+          forks_count: r.forkCount,
+          pushed_at: r.pushedAt,
+          created_at: r.createdAt,
+          open_issues_count: r.issues.totalCount,
+          archived: r.isArchived,
+          license: r.licenseInfo ? { spdx_id: r.licenseInfo.spdxId } : null,
+        });
+      });
+    } catch (err) {
+      failedBatches++;
+      log("github", `  ⚠ Batch at ${i} failed: ${err}`);
     }
 
-    // Progress log every 50
-    if ((i + batchSize) % 50 === 0 || i + batchSize >= uniqueRepos.length) {
-      log(
-        "github",
-        `  Progress: ${Math.min(i + batchSize, uniqueRepos.length)}/${uniqueRepos.length} (${successCount} ok, ${errorCount} errors)`
-      );
+    const done = Math.min(i + BATCH_SIZE, uniqueRepos.length);
+    if (done % 2000 < BATCH_SIZE || done === uniqueRepos.length) {
+      log("github", `  Progress: ${done}/${uniqueRepos.length} (${enrichData.size} found)`);
     }
-
-    if (i + batchSize < uniqueRepos.length) {
-      await sleep(delayMs);
-    }
+    await sleep(200); // stay under GitHub's secondary rate limit
   }
+
+  const successCount = enrichData.size;
+  const errorCount = uniqueRepos.length - successCount;
+  const rateLimitHit = failedBatches > 0;
 
   // Apply enrichment data back to servers
   const enriched = servers.map((server) => {
