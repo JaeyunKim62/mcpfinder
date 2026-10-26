@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { generateClientConfig } from '../src/utils/configGenerator.js';
+import { searchServers as rankServers } from '../src/utils/search.js';
 import type { ServerItem } from '../src/types.js';
 
 const CATALOG_PATH = fileURLToPath(new URL('../public/data/catalog.json', import.meta.url));
@@ -15,31 +16,14 @@ export function searchServers(
   items: ServerItem[],
   opts: { query: string; category?: string; scope?: string; officialOnly?: boolean; limit?: number }
 ): ServerItem[] {
-  const tokens = opts.query.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter((t) => t.length > 1);
   const cat = opts.category?.toLowerCase();
-  const scored: Array<{ item: ServerItem; hits: number; score: number; rank: number }> = [];
-
-  items.forEach((item, rank) => {
-    if (cat && !item.cat.toLowerCase().includes(cat)) return;
-    if (opts.scope && item.scope !== opts.scope) return;
-    if (opts.officialOnly && !item.off) return;
-
-    const name = item.name.toLowerCase();
-    const desc = item.desc.toLowerCase();
-    // Vendor's own server (github/github-mcp-server for "github"); stars are mostly missing, so this is the best quality signal
-    const owner = item.id.toLowerCase().split('/')[0];
-    let hits = 0;
-    let score = 0;
-    for (const t of tokens) {
-      const s = (owner === t ? 4 : 0) + (name.includes(t) ? 3 : 0) + (item.cat.toLowerCase().includes(t) ? 2 : 0) + (desc.includes(t) ? 1 : 0);
-      if (s > 0) hits++;
-      score += s;
-    }
-    if (tokens.length === 0 || hits > 0) scored.push({ item, hits, score, rank });
-  });
-
-  scored.sort((a, b) => b.hits - a.hits || b.score - a.score || a.rank - b.rank);
-  return scored.slice(0, opts.limit ?? 10).map((s) => s.item);
+  const filtered = items.filter(
+    (item) =>
+      (!cat || item.cat.toLowerCase().includes(cat)) &&
+      (!opts.scope || item.scope === opts.scope) &&
+      (!opts.officialOnly || item.off)
+  );
+  return rankServers(filtered, opts.query).slice(0, opts.limit ?? 10);
 }
 
 const summarize = (s: ServerItem) => ({

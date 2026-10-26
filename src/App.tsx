@@ -7,11 +7,14 @@ import { ServerTable } from './components/ServerTable';
 import { ConfigModal } from './components/ConfigModal';
 import { ServerItem, CatalogStats, FilterState } from './types';
 import { Locale, translations, getCategoryLabel } from './i18n';
-import { getLocalizedDescription } from './i18n/translator';
+import { getKnownKoDescription } from './i18n/translator';
+import { searchServers } from './utils/search';
 import { resolveNaturalLanguageIntent } from './utils/aiMatcher';
 import { ChevronLeft, ChevronRight, Terminal, RefreshCw, FolderOpen, Sparkles } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 30;
+// Korean category label + curated Korean description, so Korean queries match without translating 34k descriptions
+const koSearchText = (s: ServerItem) => `${getCategoryLabel(s.cat, 'ko')} ${getKnownKoDescription(s.id, s.name) ?? ''}`;
 const RECENT_CUTOFF = new Date(Date.now() - 180 * 864e5).toISOString().slice(0, 10);
 
 export const App: React.FC = () => {
@@ -96,6 +99,10 @@ export const App: React.FC = () => {
       .then((data: ServerItem[]) => {
         setServers(data);
         setIsFullCatalogLoaded(true);
+        // Build the search cache while idle so the first keystroke doesn't pay for it (~200ms)
+        const warm = () => searchServers(data, 'warmup', koSearchText);
+        if ('requestIdleCallback' in window) requestIdleCallback(warm);
+        else setTimeout(warm, 500);
       })
       .catch((err) => console.warn('Failed loading full catalog:', err));
   }, []);
@@ -127,98 +134,47 @@ export const App: React.FC = () => {
     setPage(1);
   };
 
-  // AI Intent Matcher
-  const aiRecommendation = useMemo(() => {
-    return resolveNaturalLanguageIntent(filters.query);
+  // Search runs once typing pauses; the input itself updates immediately
+  const [deferredQuery, setDeferredQuery] = useState('');
+  useEffect(() => {
+    const id = setTimeout(() => setDeferredQuery(filters.query), 150);
+    return () => clearTimeout(id);
   }, [filters.query]);
+  const hasQuery = deferredQuery.trim() !== '';
 
-  // Filter & Search Engine
+  // AI Intent Matcher (shows an explanation card and contributes extra keywords)
+  const aiRecommendation = useMemo(() => {
+    return resolveNaturalLanguageIntent(deferredQuery);
+  }, [deferredQuery]);
+
+  // Non-search filters
+  const { category, language, scope, officialOnly, installOnly, recentOnly, sortBy } = filters;
+  const baseServers = useMemo(
+    () =>
+      servers.filter(
+        (server) =>
+          (!category || server.cat === category) &&
+          (!language || server.lang.toLowerCase() === language.toLowerCase()) &&
+          (!scope || server.scope === scope) &&
+          (!officialOnly || server.off) &&
+          (!installOnly || !!server.cmd) &&
+          // Recent only (updated within the last 180 days)
+          (!recentOnly || (!!server.updatedAt && server.updatedAt >= RECENT_CUTOFF))
+      ),
+    [servers, category, language, scope, officialOnly, installOnly, recentOnly]
+  );
+
+  // Search: ranked by relevance, popularity breaks ties
   const filteredServers = useMemo(() => {
-    const q = filters.query.trim().toLowerCase();
+    if (!hasQuery) return baseServers;
+    const q = [deferredQuery, ...(aiRecommendation?.suggestedKeywords ?? [])].join(' ');
+    return searchServers(baseServers, q, koSearchText);
+  }, [baseServers, hasQuery, deferredQuery, aiRecommendation]);
 
-    return servers.filter((server) => {
-      // Query filter
-      if (q) {
-        // Direct intent boost match
-        if (aiRecommendation && aiRecommendation.recommendedServerIds.includes(server.id)) {
-          return true;
-        }
-
-        const matchesName = server.name.toLowerCase().includes(q);
-        const matchesDesc = server.desc.toLowerCase().includes(q);
-        const koreanDesc = getLocalizedDescription(server.name, server.desc, 'ko').toLowerCase();
-        const matchesKoDesc = koreanDesc.includes(q);
-        const catTranslated = getCategoryLabel(server.cat, locale).toLowerCase();
-        const matchesCat = server.cat.toLowerCase().includes(q) || catTranslated.includes(q);
-        const matchesCmd = server.cmd?.toLowerCase().includes(q);
-        const matchesPkg = server.pkg?.toLowerCase().includes(q);
-
-        // Keyword suggestion match from AI matcher
-        const matchesAiKeyword = aiRecommendation?.suggestedKeywords.some((k) =>
-          server.name.toLowerCase().includes(k.toLowerCase()) ||
-          server.desc.toLowerCase().includes(k.toLowerCase()) ||
-          koreanDesc.includes(k.toLowerCase())
-        );
-
-        if (!matchesName && !matchesDesc && !matchesKoDesc && !matchesCat && !matchesCmd && !matchesPkg && !matchesAiKeyword) {
-          return false;
-        }
-      }
-
-      // Category filter
-      if (filters.category && server.cat !== filters.category) {
-        return false;
-      }
-
-      // Language filter
-      if (filters.language && server.lang.toLowerCase() !== filters.language.toLowerCase()) {
-        return false;
-      }
-
-      // Scope filter
-      if (filters.scope && server.scope !== filters.scope) {
-        return false;
-      }
-
-      // Official only
-      if (filters.officialOnly && !server.off) {
-        return false;
-      }
-
-      // Install only
-      if (filters.installOnly && !server.cmd) {
-        return false;
-      }
-
-      // Recent only (updated within the last 180 days)
-      if (filters.recentOnly && (!server.updatedAt || server.updatedAt < RECENT_CUTOFF)) {
-        return false;
-      }
-
-      return true;
-    });
-  }, [servers, filters, locale, aiRecommendation]);
-
-  // Sorting
+  // Sorting (with a query, "popularity" keeps the relevance order)
   const sortedServers = useMemo(() => {
     const list = [...filteredServers];
-
-    // If AI Recommendation exists, prioritize recommended servers to the top!
-    if (aiRecommendation && aiRecommendation.recommendedServerIds.length > 0) {
-      const topIds = new Set(aiRecommendation.recommendedServerIds);
-      return list.sort((a, b) => {
-        const isRecA = topIds.has(a.id) ? 1 : 0;
-        const isRecB = topIds.has(b.id) ? 1 : 0;
-        if (isRecB !== isRecA) return isRecB - isRecA;
-
-        if (a.off !== b.off) return a.off ? -1 : 1;
-        const scoreA = (a.dl || 0) + (a.stars || 0) * 10;
-        const scoreB = (b.dl || 0) + (b.stars || 0) * 10;
-        return scoreB - scoreA;
-      });
-    }
-
-    switch (filters.sortBy) {
+    switch (sortBy) {
       case 'newest':
         return list.sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''));
       case 'downloads':
@@ -227,6 +183,7 @@ export const App: React.FC = () => {
         return list.sort((a, b) => a.name.localeCompare(b.name));
       case 'popularity':
       default:
+        if (hasQuery) return list;
         return list.sort((a, b) => {
           if (a.off !== b.off) return a.off ? -1 : 1;
           const scoreA = (a.dl || 0) + (a.stars || 0) * 10;
@@ -234,7 +191,7 @@ export const App: React.FC = () => {
           return scoreB - scoreA;
         });
     }
-  }, [filteredServers, filters.sortBy, aiRecommendation]);
+  }, [filteredServers, sortBy, hasQuery]);
 
   // Pagination slice
   const totalPages = Math.ceil(sortedServers.length / ITEMS_PER_PAGE) || 1;

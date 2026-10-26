@@ -49,6 +49,13 @@ const FEATURED_MAP: Record<string, string> = {
   ...KNOWN_DESCRIPTIONS_KO,
 };
 
+const FEATURED_MAP_LC = new Map(Object.entries(FEATURED_MAP).map(([k, v]) => [k.toLowerCase(), v]));
+
+/** Curated Korean description only (map lookups, no regex translation) - cheap enough for search indexing */
+export function getKnownKoDescription(id: string, name: string): string | undefined {
+  return FEATURED_MAP[id] ?? FEATURED_MAP_LC.get(name.toLowerCase().trim());
+}
+
 // Known technical compound phrases
 const COMPOUND_PHRASES: Record<string, string> = {
   'image, video, audio and 3d models': '이미지, 비디오, 오디오 및 3D 모델',
@@ -243,14 +250,9 @@ export function getLocalizedDescription(
   if (id && FEATURED_MAP[id]) {
     return FEATURED_MAP[id];
   }
-  const cleanKey = name.toLowerCase().trim();
-  if (FEATURED_MAP[cleanKey]) {
-    return FEATURED_MAP[cleanKey];
-  }
-  for (const [k, ko] of Object.entries(FEATURED_MAP)) {
-    if (cleanKey === k.toLowerCase()) {
-      return ko;
-    }
+  const known = FEATURED_MAP_LC.get(name.toLowerCase().trim());
+  if (known) {
+    return known;
   }
 
   // 2. Pattern matching against full description
