@@ -38,6 +38,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # data/raw is gitignored; without it the sync falls back to a slow full fetch
+      - name: Restore raw source cache
+        uses: actions/cache@v4
+        with:
+          path: data/raw
+          key: mcp-raw-${{ github.run_id }}
+          restore-keys: mcp-raw-
+
       - name: Run data sync (Incremental or Full)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

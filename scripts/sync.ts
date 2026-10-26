@@ -6,6 +6,7 @@
  *   GITHUB_TOKEN=xxx npm run sync   # Full sync + GitHub enrichment
  */
 
+import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { resolve, dirname } from "node:path";
 import { log, writeJson } from "./utils.js";
@@ -31,7 +32,10 @@ async function main() {
   const phase1Start = Date.now();
   const syncTimestamp = new Date().toISOString();
 
-  const registryUpdatedSince = isForceFull ? undefined : (state.lastRegistrySync || undefined);
+  // Incremental results are merged into the raw cache; without the cache (fresh CI runner) only a full fetch is complete
+  const hasRegistryCache = existsSync(resolve(RAW_DIR, "registry.json"));
+  if (!isForceFull && !hasRegistryCache) log("sync", "  No raw registry cache, doing a full registry fetch");
+  const registryUpdatedSince = isForceFull || !hasRegistryCache ? undefined : (state.lastRegistrySync || undefined);
 
   const [awesomeResult, registryResult, npmResult] = await Promise.allSettled([
     (async () => {
@@ -93,6 +97,12 @@ async function main() {
 
   const { mergeAllSources } = await import("./merge.js");
   let servers = await mergeAllSources();
+
+  // Safety net: a failed or partial source fetch must not overwrite the published dataset
+  if (!isForceFull && state.lastServerCount && servers.length < state.lastServerCount * 0.9) {
+    log("sync", `❌ Merged ${servers.length} servers, down from ${state.lastServerCount}. Not writing; run with --full if this drop is real.`);
+    process.exit(1);
+  }
   await writeJson(resolve(DATA_DIR, "servers.json"), servers);
 
   const phase2Time = ((Date.now() - phase2Start) / 1000).toFixed(1);
