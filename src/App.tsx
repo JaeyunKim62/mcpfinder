@@ -6,7 +6,7 @@ import { ServerCard } from './components/ServerCard';
 import { ServerTable } from './components/ServerTable';
 import { ConfigModal } from './components/ConfigModal';
 import { ServerItem, CatalogStats, FilterState } from './types';
-import { Locale, translations, getCategoryLabel } from './i18n';
+import { Locale, translations, getCategoryLabel, ESSENTIALS } from './i18n';
 import { getKnownKoDescription } from './i18n/translator';
 import { searchServers } from './utils/search';
 import { resolveNaturalLanguageIntent } from './utils/aiMatcher';
@@ -153,7 +153,7 @@ export const App: React.FC = () => {
     () =>
       servers.filter(
         (server) =>
-          (!category || server.cat === category) &&
+          (!category || (category === ESSENTIALS ? !!server.top : server.cat === category)) &&
           (!language || server.lang.toLowerCase() === language.toLowerCase()) &&
           (!scope || server.scope === scope) &&
           (!officialOnly || server.off) &&
@@ -185,6 +185,7 @@ export const App: React.FC = () => {
       default:
         if (hasQuery) return list;
         return list.sort((a, b) => {
+          if (!!a.top !== !!b.top) return a.top ? -1 : 1;
           if (a.off !== b.off) return a.off ? -1 : 1;
           const scoreA = (a.dl || 0) + (a.stars || 0) * 10;
           const scoreB = (b.dl || 0) + (b.stars || 0) * 10;
@@ -226,6 +227,7 @@ export const App: React.FC = () => {
             selectedCategory={filters.category}
             onSelectCategory={handleSelectCategory}
             totalServers={stats?.total || 34269}
+            essentialsCount={stats?.essentials ?? 0}
             locale={locale}
           />
 

@@ -1,6 +1,10 @@
 export type Locale = 'ko' | 'en';
 
+/** Virtual category: servers flagged `top` by build-catalog */
+export const ESSENTIALS = 'Essentials';
+
 export const categoryTranslations: Record<string, { ko: string; en: string }> = {
+  [ESSENTIALS]: { ko: '⭐ 주요 MCP', en: '⭐ Essentials' },
   'Developer Tools': { ko: '개발자 도구', en: 'Developer Tools' },
   'Search & Data Extraction': { ko: '검색 & 데이터 수집', en: 'Search & Data Extraction' },
   'Coding Agents': { ko: '코딩 에이전트', en: 'Coding Agents' },

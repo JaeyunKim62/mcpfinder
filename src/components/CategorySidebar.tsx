@@ -1,5 +1,5 @@
 import React from 'react';
-import { Locale, translations, getCategoryLabel } from '../i18n';
+import { Locale, translations, getCategoryLabel, ESSENTIALS } from '../i18n';
 import { 
   FolderTree, 
   Code2, 
@@ -18,7 +18,8 @@ import {
   Activity, 
   Share2, 
   MapPin, 
-  Wrench 
+  Wrench,
+  Star
 } from 'lucide-react';
 
 interface CategorySidebarProps {
@@ -26,12 +27,15 @@ interface CategorySidebarProps {
   selectedCategory: string;
   onSelectCategory: (cat: string) => void;
   totalServers: number;
+  essentialsCount: number;
   locale: Locale;
 }
 
 // Icon mapper for categories
 const getCategoryIcon = (category: string) => {
   switch (category) {
+    case ESSENTIALS:
+      return <Star className="w-4 h-4 text-amber-400" />;
     case 'Developer Tools':
       return <Code2 className="w-4 h-4 text-blue-500" />;
     case 'Search & Data Extraction':
@@ -74,6 +78,7 @@ export const CategorySidebar: React.FC<CategorySidebarProps> = ({
   selectedCategory,
   onSelectCategory,
   totalServers,
+  essentialsCount,
   locale,
 }) => {
   const t = translations[locale];
@@ -106,7 +111,7 @@ export const CategorySidebar: React.FC<CategorySidebarProps> = ({
           </button>
 
           {/* Individual Category items */}
-          {categories.map((cat) => {
+          {[...(essentialsCount ? [{ name: ESSENTIALS, count: essentialsCount }] : []), ...categories].map((cat) => {
             const isSelected = selectedCategory === cat.name;
             const label = getCategoryLabel(cat.name, locale);
 

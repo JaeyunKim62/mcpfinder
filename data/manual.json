@@ -2,5 +2,9 @@
   {
     "url": "https://github.com/TaewoooPark/Trendchaser-mcp",
     "install": "npx -y github:TaewoooPark/Trendchaser-mcp"
+  },
+  {
+    "url": "https://github.com/makenotion/notion-mcp-server",
+    "install": "npx -y @notionhq/notion-mcp-server"
   }
 ]

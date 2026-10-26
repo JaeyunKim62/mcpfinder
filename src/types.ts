@@ -17,6 +17,7 @@ export interface ServerItem {
   stars: number | null;
   dl: number | null;
   updatedAt: string | null;
+  top?: boolean;
 }
 
 export interface CatalogStats {
@@ -26,6 +27,7 @@ export interface CatalogStats {
   categories: Array<{ name: string; count: number }>;
   languages: Array<{ name: string; count: number }>;
   scopes: Array<{ name: string; count: number }>;
+  essentials?: number;
   updatedAt: string;
 }
 

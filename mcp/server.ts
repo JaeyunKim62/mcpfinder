@@ -9,7 +9,7 @@ import type { ServerItem } from '../src/types.js';
 const CATALOG_PATH = fileURLToPath(new URL('../public/data/catalog.json', import.meta.url));
 
 let catalog: ServerItem[] | null = null;
-// Already sorted by popularity (official first, then downloads/stars) by build-catalog
+// Already sorted by popularity (essentials, official, then downloads/stars) by build-catalog
 const getCatalog = () => (catalog ??= JSON.parse(readFileSync(CATALOG_PATH, 'utf-8')) as ServerItem[]);
 
 export function searchServers(
@@ -33,6 +33,7 @@ const summarize = (s: ServerItem) => ({
   category: s.cat,
   scope: s.scope,
   official: s.off,
+  essential: !!s.top,
   githubStars: s.stars,
   npmWeeklyDownloads: s.dl,
   lastUpdated: s.updatedAt,
@@ -53,7 +54,8 @@ export function createServer(): McpServer {
       description:
         'Search a catalog of 34,000+ MCP servers and return the best matches, most popular first. ' +
         'Use short English keywords for the capability needed (e.g. "postgres", "slack notion", "pdf extract"). ' +
-        'To recommend servers for a project, run several searches, one per need, and compare stars, downloads and lastUpdated.',
+        'To recommend servers for a project, run several searches, one per need, and compare stars, downloads and lastUpdated. ' +
+        'essential=true marks hand-picked well-known servers (often vendor-official remote ones with no stars); prefer them when they fit.',
       inputSchema: {
         query: z.string().describe('English keywords; any matching keyword counts, more matches rank higher'),
         category: z.string().optional().describe('Filter by category (substring); see list_categories'),

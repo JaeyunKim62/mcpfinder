@@ -10,6 +10,7 @@ import type { MCPServer } from "./types.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, "..");
 const SERVERS_PATH = resolve(PROJECT_ROOT, "data/servers.json");
+const ESSENTIALS_PATH = resolve(PROJECT_ROOT, "data/essentials.json");
 const PUBLIC_DATA_DIR = resolve(PROJECT_ROOT, "public/data");
 
 export interface WebServerItem {
@@ -31,6 +32,8 @@ export interface WebServerItem {
   stars: number | null;
   dl: number | null;
   updatedAt: string | null;
+  /** Hand-picked well-known server (data/essentials.json); omitted when false */
+  top?: true;
 }
 
 export interface CatalogStats {
@@ -40,6 +43,7 @@ export interface CatalogStats {
   categories: Array<{ name: string; count: number }>;
   languages: Array<{ name: string; count: number }>;
   scopes: Array<{ name: string; count: number }>;
+  essentials: number;
   updatedAt: string;
 }
 
@@ -51,6 +55,9 @@ async function buildCatalog() {
     console.error("❌ data/servers.json not found or invalid");
     process.exit(1);
   }
+
+  // Curated because big vendors' official servers are often remote-only with no stars to rank by
+  const essentials = new Set((await readJson<string[]>(ESSENTIALS_PATH)) ?? []);
 
   log("build-catalog", `Processing ${servers.length} servers...`);
 
@@ -98,11 +105,16 @@ async function buildCatalog() {
       stars: s.metrics?.githubStars ?? null,
       dl: s.metrics?.npmWeeklyDownloads ?? null,
       updatedAt: s.metrics?.lastCommitAt ? s.metrics.lastCommitAt.split('T')[0] : null,
+      ...(essentials.has(s.id) && { top: true as const }),
     });
   }
 
-  // Sort: Official first, then highest downloads/stars, then name
+  const missing = [...essentials].filter((id) => !catalogItems.some((c) => c.id === id));
+  if (missing.length) log("build-catalog", `⚠️ essentials.json ids not in catalog: ${missing.join(", ")}`);
+
+  // Sort: essentials, then official, then highest downloads/stars, then name
   catalogItems.sort((a, b) => {
+    if (!!a.top !== !!b.top) return a.top ? -1 : 1;
     if (a.off !== b.off) return a.off ? -1 : 1;
     const scoreA = (a.dl || 0) + (a.stars || 0) * 10;
     const scoreB = (b.dl || 0) + (b.stars || 0) * 10;
@@ -126,6 +138,7 @@ async function buildCatalog() {
     scopes: [...scopeCounts.entries()]
       .sort((a, b) => b[1] - a[1])
       .map(([name, count]) => ({ name, count })),
+    essentials: catalogItems.filter((c) => c.top).length,
     updatedAt: new Date().toISOString(),
   };
 
