@@ -59,77 +59,45 @@ export function generateClientConfig(
     }
   }
 
-  const isRemote = item.trans === 'streamable_http' || item.trans === 'sse' || !!item.remoteUrl;
-  const remoteUrl = item.remoteUrl || 'https://api.example.com/mcp';
+  // Only a known endpoint makes it remote; http transport alone often still ships a local package
+  const remoteUrl = item.remoteUrl;
+  const localDef = { command, args, ...(Object.keys(envObj).length > 0 ? { env: envObj } : {}) };
 
   switch (client) {
     case 'claude': {
-      const serverDef = isRemote
-        ? { url: remoteUrl }
-        : { command, args, ...(Object.keys(envObj).length > 0 ? { env: envObj } : {}) };
-
-      const json = {
-        mcpServers: {
-          [key]: serverDef,
-        },
-      };
-
+      // Claude Desktop config only launches local processes; bridge remote servers via mcp-remote
+      const serverDef = remoteUrl ? { command: 'npx', args: ['-y', 'mcp-remote', remoteUrl] } : localDef;
       return {
         filename: 'claude_desktop_config.json',
         locationHint: 'macOS: ~/Library/Application Support/Claude/ | Windows: %APPDATA%\\Claude\\',
-        code: JSON.stringify(json, null, 2),
+        code: JSON.stringify({ mcpServers: { [key]: serverDef } }, null, 2),
       };
     }
 
     case 'cursor': {
-      const serverDef = isRemote
-        ? { url: remoteUrl }
-        : { command, args, ...(Object.keys(envObj).length > 0 ? { env: envObj } : {}) };
-
-      const json = {
-        mcpServers: {
-          [key]: serverDef,
-        },
-      };
-
+      const serverDef = remoteUrl ? { url: remoteUrl } : localDef;
       return {
         filename: 'mcp.json',
         locationHint: 'Project: .cursor/mcp.json | Global: ~/.cursor/mcp.json',
-        code: JSON.stringify(json, null, 2),
+        code: JSON.stringify({ mcpServers: { [key]: serverDef } }, null, 2),
       };
     }
 
     case 'windsurf': {
-      const serverDef = isRemote
-        ? { url: remoteUrl }
-        : { command, args, ...(Object.keys(envObj).length > 0 ? { env: envObj } : {}) };
-
-      const json = {
-        mcpServers: {
-          [key]: serverDef,
-        },
-      };
-
+      const serverDef = remoteUrl ? { serverUrl: remoteUrl } : localDef;
       return {
         filename: 'mcp_config.json',
         locationHint: '~/.codeium/windsurf/mcp_config.json',
-        code: JSON.stringify(json, null, 2),
+        code: JSON.stringify({ mcpServers: { [key]: serverDef } }, null, 2),
       };
     }
 
     case 'zed': {
-      const serverDef = isRemote
-        ? { id: key, url: remoteUrl }
-        : { id: key, command, args, ...(Object.keys(envObj).length > 0 ? { env: envObj } : {}) };
-
-      const json = {
-        context_servers: [serverDef],
-      };
-
+      const serverDef = remoteUrl ? { url: remoteUrl } : localDef;
       return {
         filename: 'settings.json',
         locationHint: '~/.config/zed/settings.json',
-        code: JSON.stringify(json, null, 2),
+        code: JSON.stringify({ context_servers: { [key]: serverDef } }, null, 2),
       };
     }
 
@@ -138,8 +106,9 @@ export function generateClientConfig(
         .map(([k, v]) => `-e ${k}="${v}"`)
         .join(' ');
 
-      const cli = isRemote
-        ? `claude mcp add ${key} --transport http ${remoteUrl}`
+      const transport = item.trans === 'sse' ? 'sse' : 'http';
+      const cli = remoteUrl
+        ? `claude mcp add ${key} --transport ${transport} ${remoteUrl}`
         : `claude mcp add ${key} ${envFlags ? envFlags + ' ' : ''}-- ${command} ${args.join(' ')}`;
 
       return {
@@ -150,90 +119,4 @@ export function generateClientConfig(
       };
     }
   }
-}
-
-export function generateMergedStackConfig(
-  items: ServerItem[],
-  client: SupportedClient,
-  envValues: Record<string, Record<string, string>> = {}
-): GeneratedConfig {
-  if (client === 'zed') {
-    const list = items.map((item) => {
-      const key = getCleanServerKey(item);
-      const { command, args } = parseInstallCommand(item);
-      const isRemote = item.trans === 'streamable_http' || item.trans === 'sse' || !!item.remoteUrl;
-      const remoteUrl = item.remoteUrl || 'https://api.example.com/mcp';
-
-      const envObj: Record<string, string> = {};
-      if (item.envs) {
-        for (const e of item.envs) {
-          const val = envValues[item.id]?.[e.name];
-          envObj[e.name] = val || (e.secret ? 'YOUR_' + e.name : '');
-        }
-      }
-
-      return isRemote
-        ? { id: key, url: remoteUrl }
-        : { id: key, command, args, ...(Object.keys(envObj).length > 0 ? { env: envObj } : {}) };
-    });
-
-    return {
-      filename: 'settings.json',
-      locationHint: '~/.config/zed/settings.json',
-      code: JSON.stringify({ context_servers: list }, null, 2),
-    };
-  }
-
-  if (client === 'claude_code') {
-    const commands = items.map((item) => {
-      return generateClientConfig(item, 'claude_code', envValues[item.id] || {}).code;
-    });
-
-    return {
-      filename: 'Terminal Commands',
-      locationHint: 'Run each command in your terminal',
-      code: commands.join('\n\n'),
-    };
-  }
-
-  // Claude, Cursor, Windsurf all use { mcpServers: { ... } }
-  const mcpServers: Record<string, any> = {};
-  for (const item of items) {
-    const key = getCleanServerKey(item);
-    const { command, args } = parseInstallCommand(item);
-    const isRemote = item.trans === 'streamable_http' || item.trans === 'sse' || !!item.remoteUrl;
-    const remoteUrl = item.remoteUrl || 'https://api.example.com/mcp';
-
-    const envObj: Record<string, string> = {};
-    if (item.envs) {
-      for (const e of item.envs) {
-        const val = envValues[item.id]?.[e.name];
-        envObj[e.name] = val || (e.secret ? 'YOUR_' + e.name : '');
-      }
-    }
-
-    mcpServers[key] = isRemote
-      ? { url: remoteUrl }
-      : { command, args, ...(Object.keys(envObj).length > 0 ? { env: envObj } : {}) };
-  }
-
-  const filename =
-    client === 'claude'
-      ? 'claude_desktop_config.json'
-      : client === 'cursor'
-      ? 'mcp.json'
-      : 'mcp_config.json';
-
-  const locationHint =
-    client === 'claude'
-      ? 'macOS: ~/Library/Application Support/Claude/ | Windows: %APPDATA%\\Claude\\'
-      : client === 'cursor'
-      ? 'Project: .cursor/mcp.json | Global: ~/.cursor/mcp.json'
-      : '~/.codeium/windsurf/mcp_config.json';
-
-  return {
-    filename,
-    locationHint,
-    code: JSON.stringify({ mcpServers }, null, 2),
-  };
 }

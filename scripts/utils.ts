@@ -74,9 +74,9 @@ export function sleep(ms: number): Promise<void> {
 }
 
 /** Write JSON to file, creating directories if needed */
-export async function writeJson(path: string, data: unknown): Promise<void> {
+export async function writeJson(path: string, data: unknown, space: number = 2): Promise<void> {
   await mkdir(dirname(path), { recursive: true });
-  await writeFile(path, JSON.stringify(data, null, 2), "utf-8");
+  await writeFile(path, JSON.stringify(data, null, space), "utf-8");
   console.log(`  ✓ Wrote ${path}`);
 }
 

@@ -30,8 +30,6 @@ export interface WebServerItem {
   envs: Array<{ name: string; required: boolean; secret: boolean }> | null;
   stars: number | null;
   dl: number | null;
-  lic: string | null;
-  srcs: string[];
   updatedAt: string | null;
 }
 
@@ -99,8 +97,6 @@ async function buildCatalog() {
       envs,
       stars: s.metrics?.githubStars ?? null,
       dl: s.metrics?.npmWeeklyDownloads ?? null,
-      lic: s.license ?? null,
-      srcs: s.sources || [],
       updatedAt: s.metrics?.lastCommitAt ? s.metrics.lastCommitAt.split('T')[0] : null,
     });
   }
@@ -135,8 +131,9 @@ async function buildCatalog() {
 
   log("build-catalog", "Writing output files to public/data/...");
   await writeJson(resolve(PUBLIC_DATA_DIR, "stats.json"), stats);
-  await writeJson(resolve(PUBLIC_DATA_DIR, "featured.json"), featuredItems);
-  await writeJson(resolve(PUBLIC_DATA_DIR, "catalog.json"), catalogItems);
+  // Minified: served to every visitor
+  await writeJson(resolve(PUBLIC_DATA_DIR, "featured.json"), featuredItems, 0);
+  await writeJson(resolve(PUBLIC_DATA_DIR, "catalog.json"), catalogItems, 0);
 
   log(
     "build-catalog",

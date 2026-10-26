@@ -12,6 +12,7 @@ import { resolveNaturalLanguageIntent } from './utils/aiMatcher';
 import { ChevronLeft, ChevronRight, Terminal, RefreshCw, FolderOpen, Sparkles } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 30;
+const RECENT_CUTOFF = new Date(Date.now() - 180 * 864e5).toISOString().slice(0, 10);
 
 export const App: React.FC = () => {
   // Locale state
@@ -185,8 +186,8 @@ export const App: React.FC = () => {
         return false;
       }
 
-      // Recent only (updated within 2026)
-      if (filters.recentOnly && (!server.updatedAt || server.updatedAt < '2026-01-01')) {
+      // Recent only (updated within the last 180 days)
+      if (filters.recentOnly && (!server.updatedAt || server.updatedAt < RECENT_CUTOFF)) {
         return false;
       }
 
@@ -370,6 +371,7 @@ export const App: React.FC = () => {
                       scope: '',
                       officialOnly: false,
                       installOnly: false,
+                      recentOnly: false,
                       sortBy: 'popularity',
                     })
                   }

@@ -16,8 +16,6 @@ export interface ServerItem {
   envs: Array<{ name: string; required: boolean; secret: boolean }> | null;
   stars: number | null;
   dl: number | null;
-  lic: string | null;
-  srcs: string[];
   updatedAt: string | null;
 }
 

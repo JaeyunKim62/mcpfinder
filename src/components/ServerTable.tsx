@@ -92,10 +92,10 @@ export const ServerTable: React.FC<ServerTableProps> = ({
                   <div className="flex items-center gap-1.5">
                     <span className="capitalize font-mono text-[11px]">{server.lang}</span>
                     {server.scope === 'cloud' && (
-                      <Cloud className="w-3.5 h-3.5 text-indigo-500" title={t.scopeCloud} />
+                      <span title={t.scopeCloud}><Cloud className="w-3.5 h-3.5 text-indigo-500" /></span>
                     )}
                     {server.scope === 'local' && (
-                      <Laptop className="w-3.5 h-3.5 text-slate-400" title={t.scopeLocal} />
+                      <span title={t.scopeLocal}><Laptop className="w-3.5 h-3.5 text-slate-400" /></span>
                     )}
                   </div>
                   {server.updatedAt && (
