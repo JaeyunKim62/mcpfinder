@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "api/mcp.ts": {
+      "includeFiles": "public/data/catalog.json",
+      "maxDuration": 30
+    }
+  }
+}
