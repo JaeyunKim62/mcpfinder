@@ -7,3 +7,12 @@ data/raw/
 # Keep final output tracked
 # data/servers.json → tracked in git
 # data/sync-state.json → tracked in git
+
+# Build output (Vercel runs `npm run build`, which regenerates both)
+dist/
+public/data/
+
+# Local env / tooling
+.env*
+.vercel/
+*.log

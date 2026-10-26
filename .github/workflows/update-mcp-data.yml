@@ -2,8 +2,8 @@ name: Update MCP Server Data
 
 on:
   schedule:
-    # Run every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)
-    - cron: '0 */6 * * *'
+    # Daily at 00:00 UTC (each run commits the full servers.json, so keep it infrequent)
+    - cron: '0 0 * * *'
   workflow_dispatch:
     inputs:
       force_full_sync:
