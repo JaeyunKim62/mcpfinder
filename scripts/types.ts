@@ -168,6 +168,25 @@ export interface NpmEntry {
   lastUpdated: string;
 }
 
+/** Raw repo from GitHub topic search or data/manual.json */
+export interface GitHubRepoEntry {
+  fullName: string;
+  url: string;
+  description: string;
+  stars: number;
+  forks: number;
+  language: string | null;
+  topics: string[];
+  license: string | null;
+  homepage: string | null;
+  pushedAt: string;
+  createdAt: string;
+  archived: boolean;
+  openIssues: number;
+  /** Install command override, only from data/manual.json */
+  install?: string;
+}
+
 // ===== Utility types =====
 
 /** Result of a sync operation */

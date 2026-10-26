@@ -6,6 +6,8 @@ import { fileURLToPath } from "node:url";
 import { resolve, dirname } from "node:path";
 import type {
   MCPServer,
+  GitHubRepoEntry,
+  Language,
   AwesomeListEntry,
   RegistryEntry,
   NpmEntry,
@@ -49,6 +51,22 @@ export function inferCategory(name: string, description: string, tags: string[] 
     }
   }
   return "Other Tools and Integrations";
+}
+
+const GITHUB_LANGUAGES: Record<string, Language> = {
+  TypeScript: "typescript",
+  JavaScript: "typescript",
+  Python: "python",
+  Go: "go",
+  Rust: "rust",
+  "C#": "csharp",
+  Java: "java",
+  "C++": "cpp",
+  Ruby: "ruby",
+};
+
+function installFromCommand(cmd: string): InstallInfo {
+  return { type: cmd.startsWith("uvx") ? "pypi" : cmd.startsWith("docker") ? "docker" : "npm", packageName: null, installCommand: cmd, remoteUrl: null };
 }
 
 /** Create MCPServer from AwesomeListEntry */
@@ -347,6 +365,63 @@ export async function mergeAllSources(): Promise<MCPServer[]> {
     log("merge", "⚠ npm.json not found, skipping");
   }
 
+  // ===== Step 4: GitHub-only repos (topic search + data/manual.json) =====
+  const githubRaw = await readJson<SyncResult<GitHubRepoEntry>>(resolve(RAW_DIR, "github-repos.json"));
+  if (githubRaw) {
+    let newFromGithub = 0;
+    let mergedFromGithub = 0;
+    for (const r of githubRaw.entries) {
+      const key = githubKey(r.url);
+      if (!key) continue;
+      const metrics = {
+        githubStars: r.stars,
+        githubForks: r.forks,
+        createdAt: r.createdAt,
+        openIssues: r.openIssues,
+        isArchived: r.archived,
+      };
+      const existing = serverMap.get(key);
+      if (existing) {
+        Object.assign(existing.metrics, metrics);
+        existing.license = existing.license ?? r.license;
+        if (r.install && !existing.install) existing.install = installFromCommand(r.install);
+        if (!existing.sources.includes("github")) existing.sources.push("github");
+        mergedFromGithub++;
+        continue;
+      }
+      if (r.archived) continue;
+
+      const [owner, repo] = r.fullName.split("/");
+      serverMap.set(key, {
+        id: key,
+        name: r.fullName,
+        description: r.description,
+        category: inferCategory(r.fullName, r.description, r.topics),
+        tags: r.topics.filter((t) => !["mcp", "mcp-server", "mcp-servers", "model-context-protocol"].includes(t)),
+        language: GITHUB_LANGUAGES[r.language ?? ""] ?? (r.language ? "other" : "unknown"),
+        scope: "unknown",
+        osSupport: [],
+        isOfficial: false,
+        githubUrl: r.url,
+        githubOwner: owner,
+        githubRepo: repo,
+        websiteUrl: r.homepage,
+        transport: "unknown",
+        install: r.install ? installFromCommand(r.install) : null,
+        envVars: [],
+        metrics: { ...emptyMetrics(), ...metrics, lastCommitAt: r.pushedAt },
+        license: r.license,
+        sources: ["github"],
+        registryVersion: null,
+        lastSyncedAt: now,
+      });
+      newFromGithub++;
+    }
+    log("merge", `  GitHub: ${mergedFromGithub} merged, ${newFromGithub} new`);
+  } else {
+    log("merge", "⚠ github-repos.json not found, skipping");
+  }
+
   // ===== Carry over GitHub enrichment from the previous run (raw sources don't have it) =====
   const previous = await readJson<MCPServer[]>(resolve(DATA_DIR, "servers.json"));
   if (previous) {
@@ -359,7 +434,7 @@ export async function mergeAllSources(): Promise<MCPServer[]> {
     for (const s of serverMap.values()) {
       const key = s.githubUrl && githubKey(s.githubUrl);
       const p = key ? prevByRepo.get(key) : undefined;
-      if (!p) continue;
+      if (!p || s.metrics.githubStars !== null) continue;
       s.metrics.githubStars = p.metrics.githubStars;
       s.metrics.githubForks = p.metrics.githubForks;
       s.metrics.createdAt = p.metrics.createdAt;

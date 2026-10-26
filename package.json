@@ -18,6 +18,7 @@
     "sync:registry": "tsx scripts/sources/registry.ts",
     "sync:npm": "tsx scripts/sources/npm-registry.ts",
     "sync:github": "tsx scripts/sources/github.ts",
+    "sync:github-search": "tsx scripts/sources/github-search.ts",
     "merge": "tsx scripts/merge.ts"
   },
   "devDependencies": {

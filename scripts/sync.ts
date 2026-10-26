@@ -37,7 +37,7 @@ async function main() {
   if (!isForceFull && !hasRegistryCache) log("sync", "  No raw registry cache, doing a full registry fetch");
   const registryUpdatedSince = isForceFull || !hasRegistryCache ? undefined : (state.lastRegistrySync || undefined);
 
-  const [awesomeResult, registryResult, npmResult] = await Promise.allSettled([
+  const [awesomeResult, registryResult, npmResult, githubResult] = await Promise.allSettled([
     (async () => {
       const { fetchAwesomeList } = await import("./sources/awesome-list.js");
       const result = await fetchAwesomeList();
@@ -54,6 +54,12 @@ async function main() {
       const { fetchNpmPackages } = await import("./sources/npm-registry.js");
       const result = await fetchNpmPackages();
       await writeJson(resolve(RAW_DIR, "npm.json"), result);
+      return result;
+    })(),
+    (async () => {
+      const { fetchGitHubRepos } = await import("./sources/github-search.js");
+      const result = await fetchGitHubRepos();
+      await writeJson(resolve(RAW_DIR, "github-repos.json"), result);
       return result;
     })(),
   ]);
@@ -78,6 +84,12 @@ async function main() {
     );
   } else {
     log("sync", `  ✗ registry: ${registryResult.reason}`);
+  }
+
+  if (githubResult.status === "fulfilled") {
+    log("sync", `  ✓ github: ${githubResult.value.entries.length} repos, ${githubResult.value.errors.length} errors`);
+  } else {
+    log("sync", `  ✗ github: ${githubResult.reason}`);
   }
 
   if (npmResult.status === "fulfilled") {

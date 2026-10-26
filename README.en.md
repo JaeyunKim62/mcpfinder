@@ -14,7 +14,7 @@ An open-source directory of **34,000+ Model Context Protocol (MCP) servers** tha
 
 ## ✨ Key Features
 
-- **⚡ 34,000+ servers**: Aggregated and deduplicated from the Official MCP Registry, `punkpeye/awesome-mcp-servers`, and npm.
+- **⚡ 34,000+ servers**: Aggregated and deduplicated from the Official MCP Registry, `punkpeye/awesome-mcp-servers`, npm, and GitHub topics (`mcp-server`, `model-context-protocol`, 3+ stars).
 - **🔄 Daily auto-sync**: GitHub Actions fetches new and changed servers every day and commits them; Vercel redeploys automatically.
 - **🛠️ Per-client config generator**:
   - One-click configs for **Claude Desktop**, **Cursor**, **Windsurf**, **Zed**, and **Claude Code CLI** (`claude mcp add`).
@@ -48,6 +48,17 @@ claude mcp add mcpfinder -- npx tsx /path/to/mcpfinder/mcp/stdio.ts
 
 ---
 
+## ➕ Add a Missing Server
+
+Open a PR adding the repo to [`data/manual.json`](data/manual.json); it is picked up on the next sync.
+
+```json
+{ "url": "https://github.com/owner/repo", "install": "npx -y github:owner/repo" }
+```
+`install` is only needed when the server isn't published to npm or PyPI.
+
+---
+
 ## 🚀 Run Locally
 
 ```bash
@@ -58,6 +69,7 @@ npm run dev          # http://localhost:3000 (builds the data first)
 | Command | Description |
 |---|---|
 | `npm run sync` | Fetch new servers from all sources (incremental, ~30s) |
+| `GITHUB_TOKEN=... npm run sync:github-search` | Collect GitHub topic repos + manual.json |
 | `GITHUB_TOKEN=... npm run sync:github` | Fill in GitHub stars, forks, archived status |
 | `npm run build:data` | Build the web catalog data |
 | `npm run typecheck && npm test` | Type check and tests |

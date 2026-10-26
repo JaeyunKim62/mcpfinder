@@ -14,7 +14,7 @@
 
 ## ✨ 주요 기능
 
-- **⚡ 34,000개 이상의 서버**: 공식 MCP 레지스트리, `punkpeye/awesome-mcp-servers`, npm을 모아서 중복을 정리합니다.
+- **⚡ 34,000개 이상의 서버**: 공식 MCP 레지스트리, `punkpeye/awesome-mcp-servers`, npm, GitHub 토픽(`mcp-server`, `model-context-protocol`, star 3개 이상)을 모아서 중복을 정리합니다.
 - **🔄 매일 자동 동기화**: GitHub Actions가 매일 새 서버와 변경 사항을 가져와 커밋하고, Vercel이 자동으로 다시 배포합니다.
 - **🛠️ 클라이언트별 설정 생성**:
   - **Claude Desktop**, **Cursor**, **Windsurf**, **Zed**, **Claude Code CLI**(`claude mcp add`)용 설정을 클릭 한 번으로 만듭니다.
@@ -48,6 +48,17 @@ claude mcp add mcpfinder -- npx tsx /path/to/mcpfinder/mcp/stdio.ts
 
 ---
 
+## ➕ MCP 추가 요청
+
+목록에 없는 MCP가 있다면 [`data/manual.json`](data/manual.json)에 저장소 주소를 추가하는 PR을 보내 주세요. 다음 동기화 때 반영됩니다.
+
+```json
+{ "url": "https://github.com/owner/repo", "install": "npx -y github:owner/repo" }
+```
+`install`은 npm/PyPI에 배포되지 않은 경우에만 적으면 됩니다.
+
+---
+
 ## 🚀 직접 실행하기
 
 ```bash
@@ -58,6 +69,7 @@ npm run dev          # http://localhost:3000 (데이터 빌드가 먼저 자동 
 | 명령 | 설명 |
 |---|---|
 | `npm run sync` | 데이터 소스에서 새 서버 가져오기 (증분, 약 30초) |
+| `GITHUB_TOKEN=... npm run sync:github-search` | GitHub 토픽 검색 + manual.json 수집 |
 | `GITHUB_TOKEN=... npm run sync:github` | GitHub 스타·포크·아카이브 정보 채우기 |
 | `npm run build:data` | 웹용 카탈로그 데이터 생성 |
 | `npm run typecheck && npm test` | 타입 검사와 테스트 |
