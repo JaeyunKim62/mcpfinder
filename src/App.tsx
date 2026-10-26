@@ -19,8 +19,12 @@ export const App: React.FC = () => {
   const [locale, setLocale] = useState<Locale>(() => {
     const saved = localStorage.getItem('mcp_locale');
     if (saved === 'ko' || saved === 'en') return saved;
-    return navigator.language.toLowerCase().startsWith('ko') ? 'ko' : 'en';
+    return 'ko';
   });
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   const handleLocaleChange = (newLocale: Locale) => {
     setLocale(newLocale);
