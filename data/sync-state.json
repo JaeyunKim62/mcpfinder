@@ -1,9 +1,9 @@
 {
-  "lastAwesomeListSync": "2026-11-26T07:42:28.734Z",
-  "lastRegistrySync": "2026-11-26T07:42:28.734Z",
-  "lastNpmSync": "2026-11-26T07:42:28.734Z",
-  "lastGithubEnrich": "2026-11-26T07:42:28.734Z",
-  "lastServerCount": 77124,
+  "lastAwesomeListSync": "2026-11-27T07:41:22.087Z",
+  "lastRegistrySync": "2026-11-27T07:41:22.087Z",
+  "lastNpmSync": "2026-11-27T07:41:22.087Z",
+  "lastGithubEnrich": "2026-11-27T07:41:22.087Z",
+  "lastServerCount": 78098,
   "history": [
     {
       "timestamp": "2026-10-01T10:34:22.000Z",
@@ -244,6 +244,18 @@
       "newServers": 624,
       "updatedServers": 76500,
       "durationSeconds": 3509
+    },
+    {
+      "timestamp": "2026-11-27T07:41:22.087Z",
+      "sources": {
+        "awesomeList": 5061,
+        "registry": 76098,
+        "npm": 5012
+      },
+      "totalAfterMerge": 78098,
+      "newServers": 974,
+      "updatedServers": 77124,
+      "durationSeconds": 3562.9
     }
   ]
 }
